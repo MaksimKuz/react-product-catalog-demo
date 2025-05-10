@@ -1,5 +1,6 @@
 import { render } from 'preact'
-import { App } from './app.tsx'
+// @ts-ignore
+import { App } from './app.jsx'
 import { PrimeReactProvider } from "primereact/api";
 import './index.css'
 
