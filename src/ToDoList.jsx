@@ -5,14 +5,16 @@ import getProducts from "./Products.jsx";
 import {IconField} from "primereact/iconfield";
 import {InputIcon} from "primereact/inputicon";
 import {InputText} from "primereact/inputtext";
-import {useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
+import {Dialog} from "primereact/dialog";
 
 export default function ToDoList() {
 
+    const [selectedProducts, setSelectedProducts] = useState(null);
+
+    //region Панели команд
     const [globalFilter, setGlobalFilter] = useState(null);
-
-
     const headerLayout = (
         <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
             <h3 className="m-0">Управление задачами</h3>
@@ -27,7 +29,8 @@ export default function ToDoList() {
         return (
             <div className="flex flex-wrap gap-2">
                 <Button label="Добавить" icon="pi pi-plus" severity="success" /*onClick={openNew}*/ />
-                <Button label="Удалить" icon="pi pi-trash" severity="danger" /*onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length}*/ />
+                <Button label="Удалить" icon="pi pi-trash" severity="danger"
+                        onClick={confirmDeleteSelected} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
         );
     };
@@ -35,6 +38,42 @@ export default function ToDoList() {
     const rightToolbarTemplate = () => {
         return <Button label="Экспорт" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
     };
+    //endregion
+
+    const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+    let emptyProduct = {
+        id: null,
+        name: '',
+        image: null,
+        description: '',
+        category: null,
+        price: 0,
+        quantity: 0,
+        rating: 0,
+        inventoryStatus: 'INSTOCK'
+    };
+    const [products, setProducts] = useState(getProducts());
+    const [product, setProduct] = useState(emptyProduct);
+    const hideDeleteProductsDialog = () => {
+        setDeleteProductsDialog(false);
+    };
+    const confirmDeleteSelected = () => {
+        setDeleteProductsDialog(true);
+    };
+    const deleteSelectedProducts = () => {
+        let _products = products.filter((val) => val !== selectedProducts);
+
+        setProducts(_products);
+        setDeleteProductsDialog(false);
+        setSelectedProducts(null);
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+    };
+    const deleteProductsDialogFooter = (
+        <React.Fragment>
+            <Button label="Да" icon="pi pi-check" severity="danger" onClick={deleteSelectedProducts} />
+            <Button label="Нет" icon="pi pi-times" outlined onClick={hideDeleteProductsDialog} />
+        </React.Fragment>
+    );
 
     //region Экспорт данных из таблицы
     const dt = useRef(null);
@@ -49,16 +88,25 @@ export default function ToDoList() {
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
-                <DataTable ref={dt} stripedRows selectionMode="single" paginator rows={10}
+                <DataTable ref={dt} dataKey="id"  stripedRows selectionMode="single" selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+                           paginator rows={10}
                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
                            currentPageReportTemplate="с {first} по {last} из {totalRecords}"
-                           value={getProducts()} tableStyle={{minWidth: '50rem'}} header={headerLayout} globalFilter={globalFilter}>
+                           value={products} tableStyle={{minWidth: '50rem'}} header={headerLayout} globalFilter={globalFilter}
+                           emptyMessage="Нет доступных данных.">
                     <Column field="code" sortable header="Code"></Column>
                     <Column field="name" sortable header="Name"></Column>
                     <Column field="category" sortable header="Category"></Column>
                     <Column field="quantity" header="Quantity"></Column>
                 </DataTable>
             </div>
+
+            <Dialog visible={deleteProductsDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Подтверждение" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
+                    {product && <span>Вы уверены, что хотите удалить выбранную задачу?</span>}
+                </div>
+            </Dialog>
         </div>
     )
 }
