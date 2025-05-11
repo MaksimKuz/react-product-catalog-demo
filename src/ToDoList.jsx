@@ -5,13 +5,15 @@ import getProducts from "./Products.jsx";
 import {IconField} from "primereact/iconfield";
 import {InputIcon} from "primereact/inputicon";
 import {InputText} from "primereact/inputtext";
-import {useState} from "react";
+import {useRef, useState} from "react";
+import {Toolbar} from "primereact/toolbar";
 
 export default function ToDoList() {
 
     const [globalFilter, setGlobalFilter] = useState(null);
 
-    const header = (
+
+    const headerLayout = (
         <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
             <h3 className="m-0">Управление задачами</h3>
             <IconField iconPosition="left">
@@ -21,13 +23,36 @@ export default function ToDoList() {
         </div>
     );
 
+    const leftToolbarTemplate = () => {
+        return (
+            <div className="flex flex-wrap gap-2">
+                <Button label="Добавить" icon="pi pi-plus" severity="success" /*onClick={openNew}*/ />
+                <Button label="Удалить" icon="pi pi-trash" severity="danger" /*onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length}*/ />
+            </div>
+        );
+    };
+
+    const rightToolbarTemplate = () => {
+        return <Button label="Экспорт" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
+    };
+
+    //region Экспорт данных из таблицы
+    const dt = useRef(null);
+    const exportCSV = () => {
+        dt.current.exportCSV();
+    };
+    //endregion
+
+    // Собственно разметка таблицы
     return (
         <div>
             <div className="card">
-                <DataTable stripedRows selectionMode="single" paginator rows={10}
+                <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+
+                <DataTable ref={dt} stripedRows selectionMode="single" paginator rows={10}
                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
                            currentPageReportTemplate="с {first} по {last} из {totalRecords}"
-                           value={getProducts()} tableStyle={{minWidth: '50rem'}} header={header} globalFilter={globalFilter}>
+                           value={getProducts()} tableStyle={{minWidth: '50rem'}} header={headerLayout} globalFilter={globalFilter}>
                     <Column field="code" sortable header="Code"></Column>
                     <Column field="name" sortable header="Name"></Column>
                     <Column field="category" sortable header="Category"></Column>
