@@ -8,6 +8,7 @@ import {InputText} from "primereact/inputtext";
 import React, {useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
 import {Dialog} from "primereact/dialog";
+import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
 
 export default function ToDoList() {
 
@@ -30,7 +31,7 @@ export default function ToDoList() {
             <div className="flex flex-wrap gap-2">
                 <Button label="Добавить" icon="pi pi-plus" severity="success" /*onClick={openNew}*/ />
                 <Button label="Удалить" icon="pi pi-trash" severity="danger"
-                        onClick={confirmDeleteSelected} disabled={!selectedProducts || selectedProducts.length === 0}  />
+                        onClick={()=> setDeleteProductsDialog(true)} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
         );
     };
@@ -54,12 +55,7 @@ export default function ToDoList() {
     };
     const [products, setProducts] = useState(getProducts());
     const [product, setProduct] = useState(emptyProduct);
-    const hideDeleteProductsDialog = () => {
-        setDeleteProductsDialog(false);
-    };
-    const confirmDeleteSelected = () => {
-        setDeleteProductsDialog(true);
-    };
+
     const deleteSelectedProducts = () => {
         let _products = products.filter((val) => val !== selectedProducts);
 
@@ -68,12 +64,6 @@ export default function ToDoList() {
         setSelectedProducts(null);
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
     };
-    const deleteProductsDialogFooter = (
-        <React.Fragment>
-            <Button label="Да" icon="pi pi-check" severity="danger" onClick={deleteSelectedProducts} />
-            <Button label="Нет" icon="pi pi-times" outlined onClick={hideDeleteProductsDialog} />
-        </React.Fragment>
-    );
 
     //region Экспорт данных из таблицы
     const dt = useRef(null);
@@ -101,12 +91,9 @@ export default function ToDoList() {
                 </DataTable>
             </div>
 
-            <Dialog visible={deleteProductsDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Подтверждение" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
-                <div className="confirmation-content">
-                    <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                    {product && <span>Вы уверены, что хотите удалить выбранную задачу?</span>}
-                </div>
-            </Dialog>
+            {deleteProductsDialog && <ToDoListDeleteConfirmation
+                title="Вы уверены, что хотите удалить выбранную задачу?"
+                onHide={()=> setDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
         </div>
     )
 }
