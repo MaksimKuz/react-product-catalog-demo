@@ -9,6 +9,7 @@ import React, {useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
 import {Dialog} from "primereact/dialog";
 import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
+import {Toast} from "primereact/toast";
 
 export default function ToDoList() {
 
@@ -56,13 +57,14 @@ export default function ToDoList() {
     const [products, setProducts] = useState(getProducts());
     const [product, setProduct] = useState(emptyProduct);
 
+    const toast = useRef(null);
     const deleteSelectedProducts = () => {
         let _products = products.filter((val) => val !== selectedProducts);
 
         setProducts(_products);
         setDeleteProductsDialog(false);
         setSelectedProducts(null);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+        toast.current.show({ severity: 'success', summary: 'Успех', detail: 'Задача была удалена', life: 3000 });
     };
 
     //region Экспорт данных из таблицы
@@ -75,6 +77,7 @@ export default function ToDoList() {
     // Собственно разметка таблицы
     return (
         <div>
+            <Toast ref={toast} />
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
