@@ -32,7 +32,7 @@ export default function ToDoList() {
             <div className="flex flex-wrap gap-2">
                 <Button label="Добавить" icon="pi pi-plus" severity="success" /*onClick={openNew}*/ />
                 <Button label="Удалить" icon="pi pi-trash" severity="danger"
-                        onClick={()=> setDeleteProductsDialog(true)} disabled={!selectedProducts || selectedProducts.length === 0}  />
+                        onClick={()=> setShowDeleteProductsDialog(true)} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
         );
     };
@@ -42,8 +42,7 @@ export default function ToDoList() {
     };
     //endregion
 
-    const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
-    let emptyProduct = {
+    let newTask = {
         id: null,
         name: '',
         image: null,
@@ -54,18 +53,30 @@ export default function ToDoList() {
         rating: 0,
         inventoryStatus: 'INSTOCK'
     };
-    const [products, setProducts] = useState(getProducts());
-    const [product, setProduct] = useState(emptyProduct);
 
+    const [products, setProducts] = useState(getProducts());
+    const [product, setProduct] = useState(newTask);
+    const [productDialog, setProductDialog] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const openNew = () => {
+        setProduct(newTask);
+        setSubmitted(false);
+        setProductDialog(true);
+    };
     const toast = useRef(null);
+
+    //region Удаление элементов
+    const [showDeleteProductsDialog, setShowDeleteProductsDialog] = useState(false);
     const deleteSelectedProducts = () => {
         let _products = products.filter((val) => val !== selectedProducts);
 
         setProducts(_products);
-        setDeleteProductsDialog(false);
+        setShowDeleteProductsDialog(false);
         setSelectedProducts(null);
         toast.current.show({ severity: 'success', summary: 'Успех', detail: 'Задача была удалена', life: 3000 });
     };
+    //endregion
 
     //region Экспорт данных из таблицы
     const dt = useRef(null);
@@ -94,9 +105,9 @@ export default function ToDoList() {
                 </DataTable>
             </div>
 
-            {deleteProductsDialog && <ToDoListDeleteConfirmation
+            {showDeleteProductsDialog && <ToDoListDeleteConfirmation
                 title="Вы уверены, что хотите удалить выбранную задачу?"
-                onHide={()=> setDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
+                onHide={()=> setShowDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
         </div>
     )
 }
