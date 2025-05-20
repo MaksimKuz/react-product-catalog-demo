@@ -7,21 +7,9 @@ import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
 
-export default function ToDoListAdd({onHide, onSave}) {
+export default function ToDoListEdit({product, onHide, onSave}) {
 
-    let newTask = {
-        id: null,
-        name: '',
-        image: null,
-        description: '',
-        category: 'Accessories',
-        price: 0,
-        quantity: 0,
-        rating: 0,
-        inventoryStatus: 'INSTOCK'
-    };
     const [showDialog, setShowDialog] = useState(true);
-    const [product, setProduct] = useState(newTask);
     const [submitted, setSubmitted] = useState(false);
 
     const hideDialog = () => {

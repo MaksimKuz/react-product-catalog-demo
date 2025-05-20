@@ -6,6 +6,7 @@ import './ToDoList.jsx'
 import ToDoList from "./ToDoList.jsx";
 import {Button} from "primereact/button";
 import NewToDoForm from "./NewToDoForm.jsx";
+import ProductsDemo from "./Prs.jsx";
 
 const
     buttonStyle = {margin: 5};
@@ -16,10 +17,7 @@ export function App() {
         <h1>Список задач</h1>
 
         <ToDoList/>
-
-        {/*todo реализовать добавл-е/удаление */}
-        <Button style={buttonStyle}>Удалить</Button>
-        <NewToDoForm/>
+        <ProductsDemo/>
     </>
   )
 }

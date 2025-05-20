@@ -1,19 +1,26 @@
 import {Button} from 'primereact/button';
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
-import getProducts from "./Products.jsx";
 import {IconField} from "primereact/iconfield";
 import {InputIcon} from "primereact/inputicon";
 import {InputText} from "primereact/inputtext";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
 import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
 import {Toast} from "primereact/toast";
-import ToDoListAdd from "./ToDoListAdd.js";
+import ToDoListEdit from "./ToDoListEdit.js";
+import {ProductService} from "./ProductsService.js";
 
 export default function ToDoList() {
 
     const [selectedProducts, setSelectedProducts] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [product, setProduct] = useState(null);
+    const [showEditProductDialog, setShowEditProductDialog] = useState(false);
+
+    useEffect(() => {
+        ProductService.getProducts().then((data) => setProducts(data));
+    }, []);
 
     //region Панели команд
     const [globalFilter, setGlobalFilter] = useState(null);
@@ -30,7 +37,7 @@ export default function ToDoList() {
     const leftToolbarTemplate = () => {
         return (
             <div className="flex flex-wrap gap-2">
-                <Button label="Добавить" icon="pi pi-plus" severity="success" onClick={()=> setShowAddProductDialog(true)} />
+                <Button label="Добавить" icon="pi pi-plus" severity="success" onClick={newProduct} />
                 <Button label="Удалить" icon="pi pi-trash" severity="danger"
                         onClick={()=> setShowDeleteProductsDialog(true)} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
@@ -42,14 +49,33 @@ export default function ToDoList() {
     };
     //endregion
 
-    const [products, setProducts] = useState(getProducts());
-    const [showAddProductDialog, setShowAddProductDialog] = useState(false);
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => setShowDeleteProductsDialog(true)} />
+            </React.Fragment>
+        );
+    };
+
+    let newTask = {
+        id: null,
+        name: '',
+        image: null,
+        description: '',
+        category: 'Accessories',
+        price: 0,
+        quantity: 0,
+        rating: 0,
+        inventoryStatus: 'INSTOCK'
+    };
+
 
    const toast = useRef(null);
 
     //region Создание элементов
     const addNewProduct = (product) => {
-        setShowAddProductDialog(false);
+        setShowEditProductDialog(false);
 
         let _products = [...products];
         let _product = { ...product };
@@ -93,6 +119,16 @@ export default function ToDoList() {
     };
     //endregion
 
+    function newProduct() {
+        setProduct(newTask);
+        setShowEditProductDialog(true);
+    }
+
+    function editProduct(product) {
+        setProduct(product);
+        setShowEditProductDialog(true);
+    }
+
     //region Удаление элементов
     const [showDeleteProductsDialog, setShowDeleteProductsDialog] = useState(false);
     const deleteSelectedProducts = () => {
@@ -129,11 +165,12 @@ export default function ToDoList() {
                     <Column field="name" sortable header="Name"></Column>
                     <Column field="category" sortable header="Category"></Column>
                     <Column field="quantity" header="Quantity"></Column>
+                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
             </div>
 
-            {showAddProductDialog && <ToDoListAdd
-                onHide={() => setShowAddProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
+            {showEditProductDialog && <ToDoListEdit product={product}
+                onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
 
             {showDeleteProductsDialog && <ToDoListDeleteConfirmation
                 title="Вы уверены, что хотите удалить выбранную задачу?"
