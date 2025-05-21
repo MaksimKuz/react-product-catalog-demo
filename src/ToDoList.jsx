@@ -10,6 +10,8 @@ import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
 import {Toast} from "primereact/toast";
 import ToDoListEdit from "./ToDoListEdit.js";
 import {ProductService} from "./ProductsService.js";
+import {Rating} from "primereact/rating";
+import {Tag} from "primereact/tag";
 
 export default function ToDoList() {
 
@@ -34,6 +36,7 @@ export default function ToDoList() {
         </div>
     );
 
+    //region Шаблоны фрагментов таблицы
     const leftToolbarTemplate = () => {
         return (
             <div className="flex flex-wrap gap-2">
@@ -47,7 +50,6 @@ export default function ToDoList() {
     const rightToolbarTemplate = () => {
         return <Button label="Экспорт" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
     };
-    //endregion
 
     const actionBodyTemplate = (rowData) => {
         return (
@@ -57,6 +59,43 @@ export default function ToDoList() {
             </React.Fragment>
         );
     };
+
+    const imageBodyTemplate = (rowData) => {
+        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
+    };
+
+    const formatCurrency = (value) => {
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    };
+
+    const priceBodyTemplate = (rowData) => {
+        return formatCurrency(rowData.price);
+    };
+
+    const ratingBodyTemplate = (rowData) => {
+        return <Rating value={rowData.rating} readOnly cancel={false} />;
+    };
+
+    const getSeverity = (product) => {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warning';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    };
+
+    const statusBodyTemplate = (rowData) => {
+        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}></Tag>;
+    };
+    //endregion
 
     let newTask = {
         id: null,
@@ -155,16 +194,19 @@ export default function ToDoList() {
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
-                <DataTable ref={dt} dataKey="id"  stripedRows selectionMode="single" selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-                           paginator rows={10}
-                           paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                           currentPageReportTemplate="с {first} по {last} из {totalRecords}"
-                           value={products} tableStyle={{minWidth: '50rem'}} header={headerLayout} globalFilter={globalFilter}
+                <DataTable ref={dt} dataKey="id"  selectionMode="single" selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+                           paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                           currentPageReportTemplate="Отображаются задачи с {first} по {last} из {totalRecords}"
+                value={products} header={headerLayout} globalFilter={globalFilter}
                            emptyMessage="Нет доступных данных.">
-                    <Column field="code" sortable header="Code"></Column>
-                    <Column field="name" sortable header="Name"></Column>
-                    <Column field="category" sortable header="Category"></Column>
-                    <Column field="quantity" header="Quantity"></Column>
+                    <Column field="code" header="Code" sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column field="name" header="Name" sortable style={{ minWidth: '16rem' }}></Column>
+                    <Column field="image" header="Image" body={imageBodyTemplate}></Column>
+                    <Column field="price" header="Price" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
+                    <Column field="category" header="Category" sortable style={{ minWidth: '10rem' }}></Column>
+                    <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
             </div>
