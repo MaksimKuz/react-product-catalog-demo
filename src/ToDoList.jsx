@@ -54,7 +54,7 @@ export default function ToDoList() {
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-pencil" rounded outlined severity="secondary" className="mr-2" onClick={() => editProduct(rowData)} />
                 <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => setShowDeleteProductsDialog(true)} />
             </React.Fragment>
         );
@@ -200,14 +200,13 @@ export default function ToDoList() {
                            currentPageReportTemplate="Отображаются задачи с {first} по {last} из {totalRecords}"
                 value={products} header={headerLayout} globalFilter={globalFilter}
                            emptyMessage="Нет доступных данных.">
-                    <Column field="code" header="Code" sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
                     <Column field="name" header="Name" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="image" header="Image" body={imageBodyTemplate}></Column>
                     <Column field="price" header="Price" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="category" header="Category" sortable style={{ minWidth: '10rem' }}></Column>
                     <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
                     <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
-                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
             </div>
 
