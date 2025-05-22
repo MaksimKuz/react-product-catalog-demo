@@ -76,7 +76,7 @@ export default function ToDoList() {
         return <Rating value={rowData.rating} readOnly cancel={false} />;
     };
 
-    const getSeverity = (product) => {
+    function getSeverity (product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -156,12 +156,12 @@ export default function ToDoList() {
 
         return id;
     };
-    //endregion
 
     function newProduct() {
         setProduct(newTask);
         setShowEditProductDialog(true);
     }
+    //endregion
 
     function editProduct(product) {
         setProduct(product);
@@ -190,7 +190,6 @@ export default function ToDoList() {
         setDeleteProducts(p);
         setShowDeleteProductsDialog(true);
     }
-
     //endregion
 
     //region Экспорт данных из таблицы
@@ -220,7 +219,7 @@ export default function ToDoList() {
                     <Column field="price" header="Цена" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="category" header="Категория" sortable style={{ minWidth: '10rem' }}></Column>
                     <Column field="rating" header="Рейтинг" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
-                    <Column field="inventoryStatus" header="Наличие" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column field="inventoryStatus" header="Наличие" body={statusBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                 </DataTable>
             </div>
 
