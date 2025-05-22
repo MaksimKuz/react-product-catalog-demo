@@ -7,21 +7,31 @@ import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
 
-export default function ToDoListEdit({product, onHide, onSave}) {
+export default function ToDoListEdit({task, onHide, onSave}) {
 
     const [showDialog, setShowDialog] = useState(true);
     const [submitted, setSubmitted] = useState(false);
+    const [product, setProduct] = useState(task);
 
     const hideDialog = () => {
         setSubmitted(false);
         setShowDialog(false); onHide();
     };
 
+    function isValid(product){
+        return product.name.trim();
+    }
+
     const saveDialog = () => {
         setSubmitted(true);
-        setShowDialog(false); onSave(product);
+
+        if (isValid(product)) {
+            setShowDialog(false);
+            onSave(product);
+        }
     };
 
+    //region Обработка ввода
     const onCategoryChange = (e) => {
         let _product = { ...product };
 
@@ -46,6 +56,7 @@ export default function ToDoListEdit({product, onHide, onSave}) {
 
         setProduct(_product);
     };
+    //endregion
 
     const dialogFooter = (
         <>
@@ -69,7 +80,7 @@ export default function ToDoListEdit({product, onHide, onSave}) {
                         Название
                     </label>
                     <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                    {submitted && !product.name && <small className="p-error">Name is required.</small>}
+                    {submitted && !product.name && <small className="p-error">Требуется имя.</small>}
                 </div>
                 <div className="field">
                     <label htmlFor="description" className="font-bold">

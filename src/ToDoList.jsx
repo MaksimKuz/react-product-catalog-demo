@@ -123,12 +123,12 @@ export default function ToDoList() {
             const index = findIndexById(product.id);
 
             _products[index] = _product;
-            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Задача изменена', life: 3000 });
         } else {
             _product.id = createId();
             _product.image = 'product-placeholder.svg';
             _products.push(_product);
-            toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Задача создана', life: 3000 });
         }
 
         setProducts(_products);
@@ -210,7 +210,7 @@ export default function ToDoList() {
                 </DataTable>
             </div>
 
-            {showEditProductDialog && <ToDoListEdit product={product}
+            {showEditProductDialog && <ToDoListEdit task={product}
                 onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
 
             {showDeleteProductsDialog && <ToDoListDeleteConfirmation
