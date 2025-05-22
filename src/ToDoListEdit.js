@@ -69,7 +69,7 @@ export default function ToDoListEdit({task, onHide, onSave}) {
         <>
             <Dialog visible={showDialog} style={{ width: '32rem' }}
                     breakpoints={{ '960px': '75vw', '641px': '90vw' }}
-                    header="Сведения о задаче" modal className="p-fluid" footer={dialogFooter}
+                    header="Сведения о продукте" modal className="p-fluid" footer={dialogFooter}
                     onHide={hideDialog}>
 
                 {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
@@ -90,23 +90,23 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                 </div>
 
                 <div className="field">
-                    <label className="mb-3 font-bold">Category</label>
+                    <label className="mb-3 font-bold">Категория</label>
                     <div className="formgrid grid">
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
-                            <label htmlFor="category1">Accessories</label>
+                            <label htmlFor="category1">Аксессуары</label>
                         </div>
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category2" name="category" value="Clothing" onChange={onCategoryChange} checked={product.category === 'Clothing'} />
-                            <label htmlFor="category2">Clothing</label>
+                            <label htmlFor="category2">Одежда</label>
                         </div>
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category3" name="category" value="Electronics" onChange={onCategoryChange} checked={product.category === 'Electronics'} />
-                            <label htmlFor="category3">Electronics</label>
+                            <label htmlFor="category3">Электроника</label>
                         </div>
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category4" name="category" value="Fitness" onChange={onCategoryChange} checked={product.category === 'Fitness'} />
-                            <label htmlFor="category4">Fitness</label>
+                            <label htmlFor="category4">Здоровье</label>
                         </div>
                     </div>
                 </div>
@@ -114,13 +114,13 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                 <div className="formgrid grid">
                     <div className="field col">
                         <label htmlFor="price" className="font-bold">
-                            Price
+                            Цена
                         </label>
                         <InputNumber id="price" value={product.price} onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency" currency="USD" locale="en-US" />
                     </div>
                     <div className="field col">
                         <label htmlFor="quantity" className="font-bold">
-                            Quantity
+                            Количество
                         </label>
                         <InputNumber id="quantity" value={product.quantity} onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
                     </div>
