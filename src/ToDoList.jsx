@@ -42,7 +42,7 @@ export default function ToDoList() {
             <div className="flex flex-wrap gap-2">
                 <Button label="Добавить" icon="pi pi-plus" severity="success" onClick={newProduct} />
                 <Button label="Удалить" icon="pi pi-trash" severity="danger"
-                        onClick={()=> setShowDeleteProductsDialog(true)} disabled={!selectedProducts || selectedProducts.length === 0}  />
+                        onClick={()=> deleteProductsDialog(selectedProducts)} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
         );
     };
@@ -55,7 +55,7 @@ export default function ToDoList() {
         return (
             <React.Fragment>
                 <Button icon="pi pi-pencil" rounded outlined severity="secondary" className="mr-2" onClick={() => editProduct(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => setShowDeleteProductsDialog(true)} />
+                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => deleteProductsDialog(rowData)} />
             </React.Fragment>
         );
     };
@@ -170,14 +170,27 @@ export default function ToDoList() {
 
     //region Удаление элементов
     const [showDeleteProductsDialog, setShowDeleteProductsDialog] = useState(false);
+    // состояние содержит удаляемые продукты
+    const [deleteProducts, setDeleteProducts] = useState(null);
+
     const deleteSelectedProducts = () => {
-        let _products = products.filter((val) => val !== selectedProducts);
+        let _products;
+        if (Array.isArray(deleteProducts))
+            _products = products.filter((val) => !deleteProducts.includes(val));
+        else
+            _products = products.filter((val) => val.id !== deleteProducts.id);
 
         setProducts(_products);
         setShowDeleteProductsDialog(false);
         setSelectedProducts(null);
         toast.current.show({ severity: 'success', summary: 'Успех', detail: 'Продукт был удален', life: 3000 });
     };
+
+    function deleteProductsDialog(p) {
+        setDeleteProducts(p);
+        setShowDeleteProductsDialog(true);
+    }
+
     //endregion
 
     //region Экспорт данных из таблицы
@@ -200,6 +213,7 @@ export default function ToDoList() {
                            currentPageReportTemplate="Отображаются продукты с {first} по {last} из {totalRecords}"
                 value={products} header={headerLayout} globalFilter={globalFilter}
                            emptyMessage="Нет доступных данных.">
+                    <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
                     <Column field="name" header="Название" sortable style={{ minWidth: '16rem' }}></Column>
                     <Column field="image" header="Изображение" body={imageBodyTemplate}></Column>
