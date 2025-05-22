@@ -28,7 +28,7 @@ export default function ToDoList() {
     const [globalFilter, setGlobalFilter] = useState(null);
     const headerLayout = (
         <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
-            <h3 className="m-0">Управление задачами</h3>
+            <h3 className="m-0">Управление продуктами</h3>
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Поиск..." />
@@ -176,7 +176,7 @@ export default function ToDoList() {
         setProducts(_products);
         setShowDeleteProductsDialog(false);
         setSelectedProducts(null);
-        toast.current.show({ severity: 'success', summary: 'Успех', detail: 'Задача была удалена', life: 3000 });
+        toast.current.show({ severity: 'success', summary: 'Успех', detail: 'Продукт был удален', life: 3000 });
     };
     //endregion
 
@@ -197,16 +197,16 @@ export default function ToDoList() {
                 <DataTable ref={dt} dataKey="id"  selectionMode="single" selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
                            paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                           currentPageReportTemplate="Отображаются задачи с {first} по {last} из {totalRecords}"
+                           currentPageReportTemplate="Отображаются продукты с {first} по {last} из {totalRecords}"
                 value={products} header={headerLayout} globalFilter={globalFilter}
                            emptyMessage="Нет доступных данных.">
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
-                    <Column field="name" header="Name" sortable style={{ minWidth: '16rem' }}></Column>
-                    <Column field="image" header="Image" body={imageBodyTemplate}></Column>
-                    <Column field="price" header="Price" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
-                    <Column field="category" header="Category" sortable style={{ minWidth: '10rem' }}></Column>
-                    <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
-                    <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column field="name" header="Название" sortable style={{ minWidth: '16rem' }}></Column>
+                    <Column field="image" header="Изображение" body={imageBodyTemplate}></Column>
+                    <Column field="price" header="Цена" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
+                    <Column field="category" header="Категория" sortable style={{ minWidth: '10rem' }}></Column>
+                    <Column field="rating" header="Рейтинг" body={ratingBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+                    <Column field="inventoryStatus" header="Наличие" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
             </div>
 
