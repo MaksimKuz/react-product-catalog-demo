@@ -96,19 +96,19 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                     <label className="mb-3 font-bold">Категория</label>
                     <div className="formgrid grid">
                         <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
+                            <RadioButton inputId="category1" name="category" value="Аксессуары" onChange={onCategoryChange} checked={product.category === 'Аксессуары'} />
                             <label htmlFor="category1">Аксессуары</label>
                         </div>
                         <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category2" name="category" value="Clothing" onChange={onCategoryChange} checked={product.category === 'Clothing'} />
+                            <RadioButton inputId="category2" name="category" value="Одежда" onChange={onCategoryChange} checked={product.category === 'Одежда'} />
                             <label htmlFor="category2">Одежда</label>
                         </div>
                         <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category3" name="category" value="Electronics" onChange={onCategoryChange} checked={product.category === 'Electronics'} />
+                            <RadioButton inputId="category3" name="category" value="Электроника" onChange={onCategoryChange} checked={product.category === 'Электроника'} />
                             <label htmlFor="category3">Электроника</label>
                         </div>
                         <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category4" name="category" value="Fitness" onChange={onCategoryChange} checked={product.category === 'Fitness'} />
+                            <RadioButton inputId="category4" name="category" value="Здоровье" onChange={onCategoryChange} checked={product.category === 'Здоровье'} />
                             <label htmlFor="category4">Здоровье</label>
                         </div>
                     </div>
