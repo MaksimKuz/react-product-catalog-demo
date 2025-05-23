@@ -6,6 +6,9 @@ import {InputTextarea} from "primereact/inputtextarea";
 import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
+import {Rating} from "primereact/rating";
+import {getSeverity} from "./utils.js";
+import {Tag} from "primereact/tag";
 
 export default function ToDoListEdit({task, onHide, onSave}) {
 
@@ -123,6 +126,23 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                             Количество
                         </label>
                         <InputNumber id="quantity" value={product.quantity} onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
+                    </div>
+                </div>
+
+                <div className="formgrid grid">
+                    <div className="field col">
+                        <label htmlFor="rating" className="font-bold">
+                            Рейтинг
+                        </label>
+                        <Rating id="rating" value={product.rating} onChange={(e) => onInputNumberChange(e, 'rating')} cancel={false} />
+                    </div>
+                    <div className="field col">
+                        <label htmlFor="inventoryStatus" className="font-bold">
+                            Наличие
+                        </label>
+                        <div>
+                            <Tag id="inventoryStatus" value={product.inventoryStatus} severity={getSeverity(product)}/>
+                        </div>
                     </div>
                 </div>
 

@@ -12,6 +12,7 @@ import ToDoListEdit from "./ToDoListEdit.js";
 import {ProductService} from "./ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
+import {getSeverity} from "./utils.js";
 
 export default function ToDoList() {
 
@@ -76,24 +77,8 @@ export default function ToDoList() {
         return <Rating value={rowData.rating} readOnly cancel={false} />;
     };
 
-    function getSeverity (product) {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
-
-            case 'LOWSTOCK':
-                return 'warning';
-
-            case 'OUTOFSTOCK':
-                return 'danger';
-
-            default:
-                return null;
-        }
-    };
-
     const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}></Tag>;
+        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}/>;
     };
     //endregion
 
