@@ -199,7 +199,7 @@ export default function ToDoList() {
                            emptyMessage="Нет доступных данных.">
                     <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
-                    <Column field="name" header="Название" sortable style={{ minWidth: '16rem' }}></Column>
+                    <Column field="name" header="Название" sortable style={{ minWidth: '14rem' }}></Column>
                     <Column field="image" header="Изображение" body={imageBodyTemplate}></Column>
                     <Column field="price" header="Цена" body={priceBodyTemplate} sortable style={{ minWidth: '8rem' }}></Column>
                     <Column field="category" header="Категория" sortable style={{ minWidth: '10rem' }}></Column>

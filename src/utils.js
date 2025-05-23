@@ -1,13 +1,13 @@
 
 export function getSeverity (product) {
     switch (product.inventoryStatus) {
-        case 'INSTOCK':
+        case 'ДОСТАТОЧНО':
             return 'success';
 
-        case 'LOWSTOCK':
+        case 'МАЛО':
             return 'warning';
 
-        case 'OUTOFSTOCK':
+        case 'ОТСУТСТВУЕТ':
             return 'danger';
 
         default:
