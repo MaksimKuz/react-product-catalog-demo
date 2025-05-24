@@ -86,86 +86,105 @@ export default function ToDoListEdit({task, onHide, onSave}) {
 
     return (
         <>
-            <Dialog visible={showDialog} style={{ width: '64rem' }}
+            <Dialog visible={showDialog} style={{ width: '68rem' }}
                     breakpoints={{ '960px': '75vw', '641px': '90vw' }}
                     header="Сведения о продукте" modal className="p-fluid" footer={dialogFooter}
                     onHide={hideDialog}>
 
-                {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
-                                       alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => op1.current.toggle(e)} />}
-                <OverlayPanel ref={op1}>
-                    <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
-                </OverlayPanel>
+                <div className="grid nested-grid">
 
-                <div className="field">
-                    <label htmlFor="name" className="font-bold">
-                        Название
-                    </label>
-                    <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                    {submitted && !product.name && <small className="p-error">Требуется имя.</small>}
-                </div>
-                <div className="field">
-                    <label htmlFor="description" className="font-bold">
-                        Описание
-                    </label>
-                    <InputTextarea id="description" value={product.description} onChange={(e) => onInputChange(e, 'description')} required rows={3} cols={20} />
-                </div>
+                    <div className="col-8">
+                        <div className="field">
+                            <label htmlFor="name" className="font-bold">
+                                Название
+                            </label>
+                            <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')}
+                                       required
+                                       autoFocus className={classNames({'p-invalid': submitted && !product.name})}/>
+                            {submitted && !product.name && <small className="p-error">Требуется имя.</small>}
+                        </div>
+                        <div className="field">
+                            <label htmlFor="description" className="font-bold">
+                                Описание
+                            </label>
+                            <InputTextarea id="description" value={product.description}
+                                           onChange={(e) => onInputChange(e, 'description')} required rows={3}
+                                           cols={20}/>
+                        </div>
 
-                <div className="field">
-                    <label className="mb-3 font-bold">Категория</label>
-                    <div className="formgrid grid">
-                        <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category1" name="category" value="Аксессуары" onChange={onCategoryChange} checked={product.category === 'Аксессуары'} />
-                            <label htmlFor="category1">Аксессуары</label>
+                        <div className="field">
+                            <label className="mb-3 font-bold">Категория</label>
+                            <div className="formgrid grid">
+                                <div className="field-radiobutton col-3">
+                                    <RadioButton inputId="category1" name="category" value="Аксессуары"
+                                                 onChange={onCategoryChange}
+                                                 checked={product.category === 'Аксессуары'}/>
+                                    <label htmlFor="category1">Аксессуары</label>
+                                </div>
+                                <div className="field-radiobutton col-3">
+                                    <RadioButton inputId="category2" name="category" value="Одежда"
+                                                 onChange={onCategoryChange} checked={product.category === 'Одежда'}/>
+                                    <label htmlFor="category2">Одежда</label>
+                                </div>
+                                <div className="field-radiobutton col-3">
+                                    <RadioButton inputId="category3" name="category" value="Электроника"
+                                                 onChange={onCategoryChange}
+                                                 checked={product.category === 'Электроника'}/>
+                                    <label htmlFor="category3">Электроника</label>
+                                </div>
+                                <div className="field-radiobutton col-3">
+                                    <RadioButton inputId="category4" name="category" value="Здоровье"
+                                                 onChange={onCategoryChange} checked={product.category === 'Здоровье'}/>
+                                    <label htmlFor="category4">Здоровье</label>
+                                </div>
+                            </div>
                         </div>
-                        <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category2" name="category" value="Одежда" onChange={onCategoryChange} checked={product.category === 'Одежда'} />
-                            <label htmlFor="category2">Одежда</label>
-                        </div>
-                        <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category3" name="category" value="Электроника" onChange={onCategoryChange} checked={product.category === 'Электроника'} />
-                            <label htmlFor="category3">Электроника</label>
-                        </div>
-                        <div className="field-radiobutton col-3">
-                            <RadioButton inputId="category4" name="category" value="Здоровье" onChange={onCategoryChange} checked={product.category === 'Здоровье'} />
-                            <label htmlFor="category4">Здоровье</label>
-                        </div>
-                    </div>
-                </div>
 
-                <div className="formgrid grid">
-                    <div className="field col-3">
-                        <label htmlFor="price" className="font-bold">
-                            Цена
-                        </label>
-                        <InputNumber id="price" value={product.price}
-                                     onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency"
-                                     currency="USD" locale="en-US"/>
-                    </div>
-                    <div className="field col-3">
-                        <label htmlFor="quantity" className="font-bold">
-                            Количество
-                        </label>
-                        <InputNumber id="quantity" value={product.quantity}
-                                     onValueChange={(e) => onInputNumberChange(e, 'quantity')}/>
-                    </div>
-                    <div className="field col-6">
-                        <label htmlFor="inventoryStatus" className="font-bold">
-                            Наличие
-                        </label>
-                        <div>
-                            <SelectButton id="inventoryStatus" value={getStatusIndex(product.inventoryStatus)} itemTemplate={selectButtonTemplate}
-                                          onChange={onStatusChange} optionLabel="name" options={statusItems()}
-                                          style={{width:'380px'}}
-                            />
+                        <div className="formgrid grid">
+                            <div className="field col-6">
+                                <label htmlFor="price" className="font-bold">
+                                    Цена
+                                </label>
+                                <InputNumber id="price" value={product.price}
+                                             onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency"
+                                             currency="USD" locale="en-US"/>
+                            </div>
+                            <div className="field col-6">
+                                <label htmlFor="quantity" className="font-bold">
+                                    Количество
+                                </label>
+                                <InputNumber id="quantity" value={product.quantity}
+                                             onValueChange={(e) => onInputNumberChange(e, 'quantity')}/>
+                            </div>
                         </div>
                     </div>
-                    <div className="field col-6">
-                        <label htmlFor="rating" className="font-bold">
-                            Рейтинг
-                        </label>
-                        <Rating id="rating" value={product.rating} onChange={(e) => onInputNumberChange(e, 'rating')}
-                                cancel={false}/>
+
+                    <div className="col-4">
+                        {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
+                                               alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => op1.current.toggle(e)} />}
+                        <OverlayPanel ref={op1}>
+                            <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                        </OverlayPanel>
+
+                        <div className="field">
+                            <label htmlFor="inventoryStatus" className="font-bold">
+                                Наличие
+                            </label>
+                            <div>
+                                <SelectButton id="inventoryStatus" value={getStatusIndex(product.inventoryStatus)}
+                                              itemTemplate={selectButtonTemplate}
+                                              onChange={onStatusChange} optionLabel="name" options={statusItems()}
+                                />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label htmlFor="rating" className="font-bold">
+                                Рейтинг
+                            </label>
+                            <Rating id="rating" value={product.rating}
+                                    onChange={(e) => onInputNumberChange(e, 'rating')}
+                                    cancel={false}/>
+                        </div>
                     </div>
                 </div>
             </Dialog>
