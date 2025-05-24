@@ -29,7 +29,7 @@ export default function ToDoList() {
     const [globalFilter, setGlobalFilter] = useState(null);
     const headerLayout = (
         <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
-            <h3 className="m-0">Управление продуктами</h3>
+            <h3 className="m-0">Управление каталогом</h3>
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Поиск..." />

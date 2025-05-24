@@ -8,7 +8,7 @@ import ToDoList from "./ToDoList.jsx";
 export function App() {
     return (
     <>
-        <h1>Каталог товаров</h1>
+        <h1>Каталог наличия товаров</h1>
         <ToDoList/>
     </>
   )
