@@ -78,7 +78,8 @@ export default function ToDoList() {
     };
 
     const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData)}/>;
+        let status = rowData.inventoryStatus;
+        return <Tag value={status} severity={getSeverity(status)}/>;
     };
     //endregion
 

@@ -1,6 +1,6 @@
 
-export function getSeverity (product) {
-    switch (product.inventoryStatus) {
+export function getSeverity (inventoryStatus) {
+    switch (inventoryStatus) {
         case 'ДОСТАТОЧНО':
             return 'success';
 
@@ -13,4 +13,22 @@ export function getSeverity (product) {
         default:
             return null;
     }
+}
+
+const items = [
+    { name: 'МАЛО', value: 0 },
+    { name: 'ДОСТАТОЧНО', value: 1 },
+    { name: 'ОТСУТСТВУЕТ', value: 2 }
+];
+
+export function statusItems (){
+    return items;
+}
+
+export function getStatusIndex (status) {
+    return items.findIndex(value => value.name === status);
+}
+
+export function getStatusFromIndex (index) {
+    return items[index].name;
 }

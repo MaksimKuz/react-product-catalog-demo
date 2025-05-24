@@ -7,8 +7,10 @@ import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
 import {Rating} from "primereact/rating";
-import {getSeverity} from "./utils.js";
+import {getSeverity, getStatusFromIndex, getStatusIndex, statusItems} from "./utils.js";
 import {Tag} from "primereact/tag";
+import {OverlayPanel} from "primereact/overlaypanel";
+import {SelectButton} from "primereact/selectbutton";
 
 export default function ToDoListEdit({task, onHide, onSave}) {
 
@@ -42,6 +44,13 @@ export default function ToDoListEdit({task, onHide, onSave}) {
         setProduct(_product);
     };
 
+    const onStatusChange = (e) => {
+        let _product = { ...product };
+
+        _product['inventoryStatus'] = getStatusFromIndex(e.value);
+        setProduct(_product);
+    };
+
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
@@ -68,6 +77,13 @@ export default function ToDoListEdit({task, onHide, onSave}) {
         </>
     );
 
+    const selectButtonTemplate = (option) => {
+        let status = getStatusFromIndex(option.value);
+        return <Tag value={status} severity={getSeverity(status)}/>;
+    }
+
+    const op1 = useRef(null);
+
     return (
         <>
             <Dialog visible={showDialog} style={{ width: '64rem' }}
@@ -76,7 +92,10 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                     onHide={hideDialog}>
 
                 {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
-                                       alt={product.image} className="product-image block m-auto pb-3" />}
+                                       alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => op1.current.toggle(e)} />}
+                <OverlayPanel ref={op1}>
+                    <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                </OverlayPanel>
 
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
@@ -130,23 +149,27 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                         <InputNumber id="quantity" value={product.quantity}
                                      onValueChange={(e) => onInputNumberChange(e, 'quantity')}/>
                     </div>
-                    <div className="field col-3">
+                    <div className="field col-6">
+                        <label htmlFor="inventoryStatus" className="font-bold">
+                            Наличие
+                        </label>
+                        <div>
+                            <SelectButton id="inventoryStatus" value={getStatusIndex(product.inventoryStatus)} itemTemplate={selectButtonTemplate}
+                                          onChange={onStatusChange} optionLabel="name" options={statusItems()}
+                                          style={{width:'380px'}}
+                            />
+                        </div>
+                    </div>
+                    <div className="field col-6">
                         <label htmlFor="rating" className="font-bold">
                             Рейтинг
                         </label>
                         <Rating id="rating" value={product.rating} onChange={(e) => onInputNumberChange(e, 'rating')}
                                 cancel={false}/>
                     </div>
-                    <div className="field col-3">
-                        <label htmlFor="inventoryStatus" className="font-bold">
-                            Наличие
-                        </label>
-                        <div>
-                            <Tag id="inventoryStatus" value={product.inventoryStatus} severity={getSeverity(product)}/>
-                        </div>
-                    </div>
                 </div>
             </Dialog>
         </>
     )
 }
+
