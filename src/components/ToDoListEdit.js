@@ -7,7 +7,7 @@ import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
 import {Rating} from "primereact/rating";
-import {getSeverity, getStatusFromIndex, getStatusIndex, statusItems} from "./utils.js";
+import {getSeverity, getStatusFromIndex, getStatusIndex, statusItems} from "../utils.js";
 import {Tag} from "primereact/tag";
 import {OverlayPanel} from "primereact/overlaypanel";
 import {SelectButton} from "primereact/selectbutton";

@@ -2,8 +2,8 @@ import 'primereact/resources/themes/bootstrap4-light-purple/theme.css'; //theme
 import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; // flex
 import './app.css'
-import './ToDoList.jsx'
-import ToDoList from "./ToDoList.jsx";
+import './components/ToDoList.jsx'
+import ToDoList from "./components/ToDoList.jsx";
 
 export function App() {
     return (

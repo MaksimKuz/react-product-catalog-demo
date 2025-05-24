@@ -9,10 +9,10 @@ import {Toolbar} from "primereact/toolbar";
 import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
 import {Toast} from "primereact/toast";
 import ToDoListEdit from "./ToDoListEdit.js";
-import {ProductService} from "./ProductsService.js";
+import {ProductService} from "../ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
-import {getSeverity} from "./utils.js";
+import {getSeverity} from "../utils.js";
 
 export default function ToDoList() {
 
