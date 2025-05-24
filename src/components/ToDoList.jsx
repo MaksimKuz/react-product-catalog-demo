@@ -12,7 +12,7 @@ import ToDoListEdit from "./ToDoListEdit.js";
 import {ProductService} from "../ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
-import {getSeverity} from "../utils.js";
+import {getImageSrc, getSeverity} from "../utils.js";
 
 export default function ToDoList() {
 
@@ -62,7 +62,7 @@ export default function ToDoList() {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
+        return <img src={getImageSrc(rowData.image)} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
 
     const formatCurrency = (value) => {

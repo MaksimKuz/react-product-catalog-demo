@@ -31,4 +31,8 @@ export function getStatusIndex (status) {
 
 export function getStatusFromIndex (index) {
     return items[index].name;
+ }
+
+export function getImageSrc (imageName) {
+    return 'https://primefaces.org/cdn/primereact/images/product/'+imageName;
 }

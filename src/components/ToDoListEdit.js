@@ -160,7 +160,7 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                     </div>
 
                     <div className="col-4">
-                        {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
+                        {product.image && <img src={getImageSrc(product.image)}
                                                alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => op1.current.toggle(e)} />}
                         <OverlayPanel ref={op1}>
                             <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
