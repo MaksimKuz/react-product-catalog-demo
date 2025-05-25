@@ -25,7 +25,13 @@ export default function ToDoListEdit({task, onHide, onSave}) {
     };
 
     function isValid(product){
-        return product.name.trim();
+        return isValidName(product) && isValidPrice(product);
+    }
+    function isValidName(product){
+        return product.name !== null && product.name.trim();
+    }
+    function isValidPrice(product){
+        return product.price > 0;
     }
 
     const saveDialog = () => {
@@ -107,9 +113,8 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                                 Название
                             </label>
                             <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')}
-                                       required
-                                       autoFocus className={classNames({'p-invalid': submitted && !product.name})}/>
-                            {submitted && !product.name && <small className="p-error">Требуется имя.</small>}
+                                       required autoFocus className={classNames({'p-invalid': submitted && !isValidName(product) })}/>
+                            {submitted && !isValidName(product) && <small className="p-error">Требуется название продукта</small>}
                         </div>
                         <div className="field">
                             <label htmlFor="description" className="font-bold">
@@ -155,7 +160,8 @@ export default function ToDoListEdit({task, onHide, onSave}) {
                                 </label>
                                 <InputNumber id="price" value={product.price}
                                              onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency"
-                                             currency="USD" locale="en-US"/>
+                                             currency="USD" locale="en-US" className={classNames({'p-invalid': submitted && !isValidPrice(product) })}/>
+                                {submitted && !isValidPrice(product) && <small className="p-error">Требуется значение цены</small>}
                             </div>
                             <div className="field col-6">
                                 <label htmlFor="quantity" className="font-bold">
