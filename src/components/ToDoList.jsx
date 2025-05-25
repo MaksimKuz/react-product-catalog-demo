@@ -74,7 +74,7 @@ export default function ToDoList() {
     };
 
     const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly cancel={false} />;
+        return <Rating value={rowData.rating} readOnly disabled cancel={false} />;
     };
 
     const statusBodyTemplate = (rowData) => {
