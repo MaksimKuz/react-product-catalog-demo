@@ -41,7 +41,7 @@ export default function ToDoList() {
     const leftToolbarTemplate = () => {
         return (
             <div className="flex flex-wrap gap-2">
-                <Button label="Добавить" icon="pi pi-plus" severity="success" onClick={newProduct} />
+                <Button label="Добавить" icon="pi pi-plus" severity="success" onClick={addProduct} />
                 <Button label="Удалить" icon="pi pi-trash" severity="danger"
                         onClick={()=> deleteProductsDialog(selectedProducts)} disabled={!selectedProducts || selectedProducts.length === 0}  />
             </div>
@@ -83,7 +83,7 @@ export default function ToDoList() {
     };
     //endregion
 
-    let newTask = {
+    let newProduct = {
         id: null,
         name: '',
         image: null,
@@ -109,12 +109,12 @@ export default function ToDoList() {
             const index = findIndexById(product.id);
 
             _products[index] = _product;
-            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Задача изменена', life: 3000 });
+            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Продукт был изменен', life: 3000 });
         } else {
             _product.id = createId();
             _product.image = 'product-placeholder.svg';
             _products.push(_product);
-            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Задача создана', life: 3000 });
+            toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Продукт добавлен', life: 3000 });
         }
 
         setProducts(_products);
@@ -143,8 +143,8 @@ export default function ToDoList() {
         return id;
     };
 
-    function newProduct() {
-        setProduct(newTask);
+    function addProduct() {
+        setProduct(newProduct);
         setShowEditProductDialog(true);
     }
     //endregion
@@ -213,7 +213,7 @@ export default function ToDoList() {
                 onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
 
             {showDeleteProductsDialog && <ToDoListDeleteConfirmation
-                title="Вы уверены, что хотите удалить выбранную задачу?"
+                title="Вы уверены, что хотите удалить выбранный продукт?"
                 onHide={()=> setShowDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
         </div>
     )
