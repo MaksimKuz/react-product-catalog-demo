@@ -7,10 +7,11 @@ import {RadioButton} from "primereact/radiobutton";
 import {InputNumber} from "primereact/inputnumber";
 import {Dialog} from "primereact/dialog";
 import {Rating} from "primereact/rating";
-import {getSeverity, getStatusFromIndex, getStatusIndex, statusItems} from "../utils.js";
+import {getImageSrc, getSeverity, getStatusFromIndex, getStatusIndex, statusItems} from "../utils.js";
 import {Tag} from "primereact/tag";
 import {OverlayPanel} from "primereact/overlaypanel";
 import {SelectButton} from "primereact/selectbutton";
+import ImageSelector from "./ImageSelector.jsx";
 
 export default function ToDoListEdit({task, onHide, onSave}) {
 
@@ -68,6 +69,13 @@ export default function ToDoListEdit({task, onHide, onSave}) {
 
         setProduct(_product);
     };
+
+    const imageSelect = image => {
+        let _product = { ...product };
+        _product[`image`] = image;
+        setProduct(_product);
+    };
+
     //endregion
 
     const dialogFooter = (
@@ -82,7 +90,7 @@ export default function ToDoListEdit({task, onHide, onSave}) {
         return <Tag value={status} severity={getSeverity(status)}/>;
     }
 
-    const op1 = useRef(null);
+    const imageOverlayPanel = useRef(null);
 
     return (
         <>
@@ -161,9 +169,9 @@ export default function ToDoListEdit({task, onHide, onSave}) {
 
                     <div className="col-4">
                         {product.image && <img src={getImageSrc(product.image)}
-                                               alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => op1.current.toggle(e)} />}
-                        <OverlayPanel ref={op1}>
-                            <img src={'https://primefaces.org/cdn/primereact/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                                               alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => imageOverlayPanel.current.toggle(e)} />}
+                        <OverlayPanel ref={imageOverlayPanel} >
+                            <ImageSelector product={product} onImageSelect={imageSelect}/>
                         </OverlayPanel>
 
                         <div className="field">
