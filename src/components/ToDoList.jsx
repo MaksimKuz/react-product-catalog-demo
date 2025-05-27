@@ -112,7 +112,6 @@ export default function ToDoList() {
             toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Продукт был изменен', life: 3000 });
         } else {
             _product.id = createId();
-            _product.image = 'product-placeholder.svg';
             _products.push(_product);
             toast.current.show({ severity: 'success', summary: 'Успешно', detail: 'Продукт добавлен', life: 3000 });
         }

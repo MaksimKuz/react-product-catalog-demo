@@ -12,6 +12,7 @@ import {Tag} from "primereact/tag";
 import {OverlayPanel} from "primereact/overlaypanel";
 import {SelectButton} from "primereact/selectbutton";
 import ImageSelector from "./ImageSelector.jsx";
+import productPng from "/src/assets/product.png";
 
 export default function ToDoListEdit({task, onHide, onSave}) {
 
@@ -25,13 +26,19 @@ export default function ToDoListEdit({task, onHide, onSave}) {
     };
 
     function isValid(product){
-        return isValidName(product) && isValidPrice(product);
+        return isValidName(product) && isValidPrice(product) && isValidImage(product);
     }
+
     function isValidName(product){
         return product.name !== null && product.name.trim();
     }
+
     function isValidPrice(product){
         return product.price > 0;
+    }
+
+    function isValidImage(product){
+        return product.image !== null;
     }
 
     const saveDialog = () => {
@@ -175,7 +182,9 @@ export default function ToDoListEdit({task, onHide, onSave}) {
 
                     <div className="col-4">
                         {product.image && <img src={getImageSrc(product.image)}
-                                               alt={product.image} className="product-image block m-auto pb-3" onClick={(e) => imageOverlayPanel.current.toggle(e)} />}
+                                               className="product-image block m-auto pb-3" onClick={(e) => imageOverlayPanel.current.toggle(e)} />}
+                        {!product.image && <img src={productPng} onClick={(e) => imageOverlayPanel.current.toggle(e)} />}
+                        {submitted && !isValidImage(product) && <small className="p-error">Требуется указать изображение</small>}
                         <OverlayPanel ref={imageOverlayPanel} >
                             <ImageSelector product={product} onImageSelect={imageSelect}/>
                         </OverlayPanel>
