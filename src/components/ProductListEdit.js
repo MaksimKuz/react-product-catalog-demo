@@ -14,11 +14,11 @@ import {SelectButton} from "primereact/selectbutton";
 import ImageSelector from "./ImageSelector.jsx";
 import productPng from "/src/assets/product.png";
 
-export default function ToDoListEdit({task, onHide, onSave}) {
+export default function ProductListEdit({editProduct, onHide, onSave}) {
 
     const [showDialog, setShowDialog] = useState(true);
     const [submitted, setSubmitted] = useState(false);
-    const [product, setProduct] = useState(task);
+    const [product, setProduct] = useState(editProduct);
 
     const hideDialog = () => {
         setSubmitted(false);

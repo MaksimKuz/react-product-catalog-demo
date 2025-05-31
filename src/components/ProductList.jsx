@@ -6,15 +6,15 @@ import {InputIcon} from "primereact/inputicon";
 import {InputText} from "primereact/inputtext";
 import React, {useEffect, useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
-import ToDoListDeleteConfirmation from "./ToDoListDeleteConfirmation.jsx";
+import ProductListDeleteConfirmation from "./ProductListDeleteConfirmation.jsx";
 import {Toast} from "primereact/toast";
-import ToDoListEdit from "./ToDoListEdit.js";
+import ProductListEdit from "./ProductListEdit.js";
 import {ProductService} from "../ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
 
-export default function ToDoList() {
+export default function ProductList() {
 
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [products, setProducts] = useState(null);
@@ -208,10 +208,10 @@ export default function ToDoList() {
                 </DataTable>
             </div>
 
-            {showEditProductDialog && <ToDoListEdit task={product}
-                onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
+            {showEditProductDialog && <ProductListEdit editProduct={product}
+                                                       onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
 
-            {showDeleteProductsDialog && <ToDoListDeleteConfirmation
+            {showDeleteProductsDialog && <ProductListDeleteConfirmation
                 title="Вы уверены, что хотите удалить выбранный продукт?"
                 onHide={()=> setShowDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
         </div>
