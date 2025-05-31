@@ -88,7 +88,7 @@ export default function ToDoList() {
         name: '',
         image: null,
         description: '',
-        category: 'Accessories',
+        category: 'Аксессуары',
         price: 0,
         quantity: 0,
         rating: 0,
