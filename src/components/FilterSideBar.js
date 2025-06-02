@@ -2,29 +2,66 @@
 import React, { useState } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
+import {NavLink, useParams} from "react-router-dom";
+
+const filterHeaderStyles = "bg-primary text-center";
+const filterSubHeaderStyles = "surface-200 pl-3";
 
 export default function FilterSideBar() {
     const [visibleRight, setVisibleRight] = useState(true);
 
+
+    const navLinkStyles = ({ isActive }) => {
+        return {
+            fontWeight: isActive ? "bold" : "normal",
+            textDecoration: isActive ? "none" : "underline"
+        };
+    };
+
     return (
         <div className="card">
             <div className="flex gap-2 justify-content-center">
-                <Button icon="pi pi-arrow-left" onClick={() => setVisibleRight(true)} />
+                <Button icon="pi pi-filter" onClick={() => setVisibleRight(true)} />
             </div>
 
             <Sidebar visible={visibleRight} position="right" dismissable={false} modal={false} onHide={() => setVisibleRight(false)}>
-                <h2 className="bg-primary text-center">Фильтрация</h2>
+                <h2 className={filterHeaderStyles}>
+                    Фильтрация
+                </h2>
                 <p>
-                    <h3 className="surface-200">по категориям</h3>
-                    <li className="text-left">Все</li>
-                    <li className="text-left">Аксессуары</li>
-                    <li className="text-left">Одежда</li>
-                    <li className="text-left">Электроника</li>
-                    <li className="text-left">Здоровье</li>
+                    <h3 className={filterSubHeaderStyles}>
+                        по категориям
+                    </h3>
+                    <li><NavLink style={navLinkStyles} to="/products/?category=">
+                        Все категории
+                    </NavLink></li>
 
-                    <h3 className="surface-200">по наличию</h3>
-                    <li className="text-left">Все</li>
-                    <li className="text-left">Только в наличии</li>
+                    <li><NavLink style={navLinkStyles} to="/products?category=Аксессуары">
+                        Аксессуары
+                    </NavLink></li>
+
+                    <li><NavLink style={navLinkStyles} to="/products?category=Одежда">
+                        Одежда
+                    </NavLink></li>
+
+                    <li><NavLink style={navLinkStyles} to="/products/?category=Электроника">
+                        Электроника
+                    </NavLink></li>
+
+                    <li><NavLink style={navLinkStyles} to="/products/?category=Здоровье">
+                        Здоровье
+                    </NavLink></li>
+
+                    <h3 className={filterSubHeaderStyles}>
+                        по наличию
+                    </h3>
+                    <li><NavLink style={navLinkStyles} to="/products/?instock=">
+                        Все
+                    </NavLink></li>
+
+                    <li><NavLink style={navLinkStyles} to="/products/?instock=true">
+                        Только в наличии
+                    </NavLink></li>
                 </p>
             </Sidebar>
 

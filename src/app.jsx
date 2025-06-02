@@ -4,27 +4,45 @@ import 'primeflex/primeflex.css'; // flex
 import './app.css'
 import './components/ProductList.jsx'
 import './components/MainMenuSideBar.jsx'
+import {Route, Routes, NavLink, useParams, Outlet} from "react-router-dom";
 import ProductList from "./components/ProductList.jsx";
 import Menu from "./components/MainMenuSideBar.jsx";
 import MainMenuSideBar from "./components/MainMenuSideBar.jsx";
 import FilterSideBar from "./components/FilterSideBar.js";
+import Home from "./home.jsx";
+
+function createRoutes(){
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="products" element={<AppMain />}>
+                <Route path=":filter" element={<AppMain />} />
+            </Route>
+        </Routes>
+    )
+}
 
 export function App() {
     return (
+        <div className="App">
+            {createRoutes()}
+        </div>
+    );
+}
+
+function AppMain() {
+    return (
         <>
-            <div className="grid">
-                <div className="col-10">
-                    <h1>Каталог наличия товаров</h1>
+            <div>
+                <div>
+                    <h1>Каталог товаров</h1>
                     <ProductList/>
                 </div>
-                <div className="col-2">
-                    <div style={"margin:5px"}>
-                        <MainMenuSideBar/>
-                    </div>
+                <div>
+                    <MainMenuSideBar/>
                 </div>
                 <FilterSideBar/>
             </div>
-
         </>
     )
 }

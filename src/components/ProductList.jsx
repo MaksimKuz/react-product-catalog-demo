@@ -13,6 +13,7 @@ import {ProductService} from "../ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
+import {useParams, useSearchParams} from "react-router-dom";
 
 export default function ProductList() {
 
@@ -21,9 +22,17 @@ export default function ProductList() {
     const [product, setProduct] = useState(null);
     const [showEditProductDialog, setShowEditProductDialog] = useState(false);
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    let cat = searchParams.get("category");
+    let ins = searchParams.get("instock");
+    let [category, setCategory] = useState(cat);
+    let [instock, setInstock] = useState(ins);
+
     useEffect(() => {
-        ProductService.getProducts().then((data) => setProducts(data));
-    }, []);
+        category = cat;
+        instock = ins;
+        ProductService.getProducts(category, instock).then((data) => setProducts(data));
+    }, [cat, category, ins, instock]);
 
     //region Панели команд
     const [globalFilter, setGlobalFilter] = useState(null);
@@ -187,6 +196,7 @@ export default function ProductList() {
     // Собственно разметка таблицы
     return (
         <div>
+            Категория {category} Наличие {instock}
             <Toast ref={toast} />
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>

@@ -1206,8 +1206,13 @@ export const ProductService = {
         return Promise.resolve(this.getProductsData().slice(0, 10));
     },
 
-    getProducts() {
-        return Promise.resolve(this.getProductsData());
+    getProducts(category, instock) {
+        let productsData = this.getProductsData();
+        if (category !== "" && category !== null)
+            productsData = productsData.filter((d) => d.category === category);
+        if (instock !== "" && instock !== null)
+            productsData = productsData.filter((d) => d.inventoryStatus !== "ОТСУТСТВУЕТ");
+        return Promise.resolve(productsData);
     },
 
     getProductsWithOrdersSmall() {
