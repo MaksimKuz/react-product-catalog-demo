@@ -16,7 +16,6 @@ function createRoutes(){
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="products" element={<AppMain />}>
-                <Route path=":filter" element={<AppMain />} />
             </Route>
         </Routes>
     )

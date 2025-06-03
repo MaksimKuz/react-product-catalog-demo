@@ -23,16 +23,12 @@ export default function ProductList() {
     const [showEditProductDialog, setShowEditProductDialog] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
-    let cat = searchParams.get("category");
-    let ins = searchParams.get("instock");
-    let [category, setCategory] = useState(cat);
-    let [instock, setInstock] = useState(ins);
+    let category = searchParams.get("category");
+    let instock = searchParams.get("instock");
 
     useEffect(() => {
-        category = cat;
-        instock = ins;
         ProductService.getProducts(category, instock).then((data) => setProducts(data));
-    }, [cat, category, ins, instock]);
+    }, [category, instock]);
 
     //region Панели команд
     const [globalFilter, setGlobalFilter] = useState(null);
