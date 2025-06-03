@@ -18,13 +18,11 @@ export function Menu() {
     )
 }
 
-export default function MainMenuSideBar() {
-    const [visible, setVisible] = useState(false);
+export default function MainMenuSideBar({visible, onVisibleChange}) {
 
     return <div className="card flex justify-content-center">
-        <Button icon="pi pi-bars" onClick={() => setVisible(true)}/>
         <Sidebar
-            visible={visible} onHide={() => setVisible(false)}
+            visible={visible} onHide={() => onVisibleChange(false)}
             content={({ closeIconRef, hide }) => MenuContent(closeIconRef, hide)}
         ></Sidebar>
     </div>

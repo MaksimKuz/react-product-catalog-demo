@@ -7,9 +7,7 @@ import {NavLink, useParams} from "react-router-dom";
 const filterHeaderStyles = "bg-primary text-center";
 const filterSubHeaderStyles = "surface-200 pl-3";
 
-export default function FilterSideBar() {
-    const [visibleRight, setVisibleRight] = useState(true);
-
+export default function FilterSideBar({visible, onVisibleChange}) {
 
     const navLinkStyles = ({ isActive }) => {
         return {
@@ -20,11 +18,7 @@ export default function FilterSideBar() {
 
     return (
         <div className="card">
-            <div className="flex gap-2 justify-content-center">
-                <Button icon="pi pi-filter" onClick={() => setVisibleRight(true)} />
-            </div>
-
-            <Sidebar visible={visibleRight} position="right" dismissable={false} modal={false} onHide={() => setVisibleRight(false)}>
+            <Sidebar visible={visible} position="right" dismissable={false} modal={false} onHide={() => onVisibleChange(false)}>
                 <h2 className={filterHeaderStyles}>
                     Фильтрация
                 </h2>

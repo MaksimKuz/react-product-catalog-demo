@@ -13,7 +13,7 @@ import {ProductService} from "../ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 
 export default function ProductList() {
 
@@ -192,7 +192,6 @@ export default function ProductList() {
     // Собственно разметка таблицы
     return (
         <div>
-            Категория {category} Наличие {instock}
             <Toast ref={toast} />
             <div className="card">
                 <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
