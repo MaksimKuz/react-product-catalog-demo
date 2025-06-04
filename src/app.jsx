@@ -38,7 +38,7 @@ function AppMain() {
     const [mainMenuSideBarVisible, setMainMenuSideBarVisible] = useState(false);
 
     const HeaderToolbar = () => {
-        const navigate = useNavigate()
+        const navigate = useNavigate();
 
         const startContent = (
             <React.Fragment>
