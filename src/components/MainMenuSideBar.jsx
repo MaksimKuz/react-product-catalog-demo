@@ -47,34 +47,6 @@ function MenuContent(closeIconRef, hide) {
                                     fill="var(--primary-color)"
                                 />
                             </g>
-                            <path
-                                d="M22.0969 18.6465L20.3461 18.2616L21.7078 20.1862V26.1522L26.0214 22.3031L26.3764 15.7598L24.2367 16.5296L22.0969 18.6465Z"
-                                fill="var(--primary-color)"/>
-                            <path
-                                d="M11.2035 18.6465L12.9543 18.2616L11.5926 20.1862V26.1522L7.27906 22.3031L6.92397 15.7598L9.06376 16.5296L11.2035 18.6465Z"
-                                fill="var(--primary-color)"/>
-                            <path fillRule="evenodd" clipRule="evenodd"
-                                  d="M12.1761 20.5713L13.7323 18.2618L14.7049 18.8392H18.5955L19.5681 18.2618L21.1243 20.5713V29.2316L19.3056 32.6659H13.6397L12.1761 29.2316V20.5713Z"
-                                  fill="var(--primary-color)"/>
-                            <path d="M21.7079 29.8089L24.2367 27.3071V24.8052L21.7079 26.9221V29.8089Z"
-                                  fill="var(--primary-color)"/>
-                            <path d="M11.5927 29.8089L9.06387 27.3071V24.8052L11.5927 26.9221V29.8089Z"
-                                  fill="var(--primary-color)"/>
-                            <path fillRule="evenodd" clipRule="evenodd"
-                                  d="M16.2613 7.09967H14.1215L12.5652 10.7563L15.0941 18.0694H18.401L20.7353 10.7563L19.1791 7.09967H17.0394V18.0694H16.2613V7.09967Z"
-                                  fill="var(--primary-color)"/>
-                            <path
-                                d="M15.0942 18.0694L6.7296 14.9901L5.56244 10.1788L12.7599 10.7562L15.2887 18.0694H15.0942Z"
-                                fill="var(--primary-color)"/>
-                            <path
-                                d="M18.4011 18.0694L26.7658 14.9901L27.9329 10.1788L20.5409 10.7562L18.2066 18.0694H18.4011Z"
-                                fill="var(--primary-color)"/>
-                            <path
-                                d="M21.1245 10.1789L24.8545 9.794L22.4862 7.09967H19.7628L21.1245 10.1789Z"
-                                fill="var(--primary-color)"/>
-                            <path
-                                d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z"
-                                fill="var(--primary-color)"/>
                         </svg>
                         <span className="font-semibold text-2xl text-primary">Your Logo</span>
                     </span>
