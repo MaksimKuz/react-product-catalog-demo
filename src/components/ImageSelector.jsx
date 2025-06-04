@@ -23,7 +23,7 @@ export default function ImageSelector({product, onImageSelect}) {
     ];
 
     useEffect(() => {
-        ProductService.getProducts().then((data) => {
+        ProductService.getProducts("", "").then((data) => {
             setImages(data);
             // установка в галлерее текущего изображения совпадающего с текущим
             // TODO это почему-то не работает (не работает даже просто установка в константу), работает только иници-ция в useState
