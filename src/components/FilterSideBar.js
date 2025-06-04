@@ -60,7 +60,7 @@ export default function FilterSideBar({visible, onVisibleChange}) {
                 <h2 className={filterHeaderStyles}>
                     Фильтрация
                 </h2>
-                <p>
+                <div>
                     <h3 className={filterSubHeaderStyles}>
                         по категориям
                     </h3>
@@ -81,7 +81,7 @@ export default function FilterSideBar({visible, onVisibleChange}) {
                         <InstockFilterOption value="" label="Все"/>
                         <InstockFilterOption value="true" label="Только в наличии"/>
                     </div>
-                </p>
+                </div>
             </Sidebar>
         </div>
     )
