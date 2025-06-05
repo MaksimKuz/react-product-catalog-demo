@@ -1,5 +1,6 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import Back from "/src/assets/products.jpg"
+import {Button} from "primereact/button";
 
 export default function Home() {
 
@@ -26,13 +27,25 @@ export default function Home() {
             background: "white"
         }
 
+    const navigate = useNavigate();
+
     return (
-        <div style={backgroundBlockStyle}>
-            <div style={titleBlockStyle}>
-                <h1 class="m-0">Каталог продуктов</h1>
-                <NavLink to="/products">
-                    <h2>Перейти в каталог</h2>
-                </NavLink>
+
+        <div className="grid grid-nogutter surface-0 text-800">
+            <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+                <section>
+                    <span className="block text-6xl font-bold mb-1">Каталог продуктов</span>
+                    <p className="mt-0 mb-4 text-700 line-height-3">Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                    <Button label="Перейти в каталог" type="button" className="mr-3 p-button-raised"
+                    onClick={() => {navigate("/products")}}/>
+                    <Button label="Покинуть сайт" type="button" className="p-button-outlined"/>
+                </section>
+            </div>
+            <div className="col-12 md:col-6 overflow-hidden">
+                <img src="/src/assets/products.jpg" alt="hero-1" className="md:ml-auto block md:h-full"
+                     style={{clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)'}}/>
             </div>
         </div>
     )
