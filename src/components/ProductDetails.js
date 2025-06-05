@@ -14,7 +14,7 @@ import {SelectButton} from "primereact/selectbutton";
 import ImageSelector from "./ImageSelector.jsx";
 import productPng from "/src/assets/product.png";
 
-export default function ProductListEdit({editProduct, onHide, onSave}) {
+export default function ProductDetails({editProduct, onHide, onSave}) {
 
     const [showDialog, setShowDialog] = useState(true);
     const [submitted, setSubmitted] = useState(false);

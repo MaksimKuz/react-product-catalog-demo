@@ -2,17 +2,18 @@ import 'primereact/resources/themes/bootstrap4-light-purple/theme.css'; //theme
 import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; // flex
 import './app.css'
-import './components/ProductList.jsx'
+import './pages/Products.jsx'
 import './components/MainMenuSideBar.jsx'
 import {Route, Routes, NavLink, useParams, Outlet, useNavigate} from "react-router-dom";
-import ProductList from "./components/ProductList.jsx";
+import Products from "./pages/Products.jsx";
 import Menu from "./components/MainMenuSideBar.jsx";
 import MainMenuSideBar from "./components/MainMenuSideBar.jsx";
 import FilterSideBar from "./components/FilterSideBar.js";
-import Home from "./home.jsx";
+import Home from "./pages/Home.jsx";
 import React, {useState} from "react";
 import {Button} from "primereact/button";
 import {Toolbar} from "primereact/toolbar";
+import Dashboard from "./pages/Dashboard.js";
 
 function createRoutes(){
     return (
@@ -67,7 +68,7 @@ function AppMain() {
     return (
         <>
             <HeaderToolbar/>
-            <ProductList/>
+            <Products/>
             <MainMenuSideBar visible={mainMenuSideBarVisible} onVisibleChange={(value) =>setMainMenuSideBarVisible(value)}/>
             <FilterSideBar visible={filterPanelVisible} onVisibleChange={(value) =>setFilterPanelVisible(value)}/>
         </>

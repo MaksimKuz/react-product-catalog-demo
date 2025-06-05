@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Galleria } from 'primereact/galleria';
-import {ProductService} from "../ProductsService.js";
+import {ProductService} from "../services/ProductsService.js";
 import {getImageSrc} from "../utils.js";
 
 export default function ImageSelector({product, onImageSelect}) {

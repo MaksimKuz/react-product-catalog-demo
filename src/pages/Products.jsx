@@ -6,16 +6,16 @@ import {InputIcon} from "primereact/inputicon";
 import {InputText} from "primereact/inputtext";
 import React, {useEffect, useRef, useState} from "react";
 import {Toolbar} from "primereact/toolbar";
-import ProductListDeleteConfirmation from "./ProductListDeleteConfirmation.jsx";
+import ProductDeleteConfirmation from "../components/ProductDeleteConfirmation.jsx";
 import {Toast} from "primereact/toast";
-import ProductListEdit from "./ProductListEdit.js";
-import {ProductService} from "../ProductsService.js";
+import ProductDetails from "../components/ProductDetails.js";
+import {ProductService} from "../services/ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
 import {useSearchParams} from "react-router-dom";
 
-export default function ProductList() {
+export default function Products() {
 
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [products, setProducts] = useState(null);
@@ -213,10 +213,10 @@ export default function ProductList() {
                 </DataTable>
             </div>
 
-            {showEditProductDialog && <ProductListEdit editProduct={product}
-                                                       onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
+            {showEditProductDialog && <ProductDetails editProduct={product}
+                                                      onHide={() => setShowEditProductDialog(false)} onSave={(product)=> addNewProduct(product)}/>}
 
-            {showDeleteProductsDialog && <ProductListDeleteConfirmation
+            {showDeleteProductsDialog && <ProductDeleteConfirmation
                 title="Вы уверены, что хотите удалить выбранный продукт?"
                 onHide={()=> setShowDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
         </div>

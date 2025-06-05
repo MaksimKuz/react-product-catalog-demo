@@ -1198,14 +1198,6 @@ export const ProductService = {
         ];
     },
 
-    getProductsMini() {
-        return Promise.resolve(this.getProductsData().slice(0, 5));
-    },
-
-    getProductsSmall() {
-        return Promise.resolve(this.getProductsData().slice(0, 10));
-    },
-
     getProducts(category, instock) {
         let productsData = this.getProductsData();
         if (category !== "" && category !== null)
