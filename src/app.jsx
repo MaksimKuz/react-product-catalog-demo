@@ -19,6 +19,7 @@ function createRoutes(){
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<AppMain />}>
             </Route>
         </Routes>

@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { Avatar } from 'primereact/avatar';
 import { Ripple } from 'primereact/ripple';
 import { StyleClass } from 'primereact/styleclass';
+import {useNavigate} from "react-router-dom";
 
 export function Menu() {
     const [visible, setVisible] = useState(true);
@@ -29,6 +30,7 @@ export default function MainMenuSideBar({visible, onVisibleChange}) {
 }
 
 function MenuContent(closeIconRef, hide) {
+    const navigate = useNavigate();
     const btnRef1 = useRef(null);
     const btnRef2 = useRef(null);
     const btnRef3 = useRef(null);
@@ -93,7 +95,7 @@ function MenuContent(closeIconRef, hide) {
                                     <li>
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                             <i className="pi pi-home mr-2"></i>
-                                            <span className="font-medium">Dashboard</span>
+                                            <span className="font-medium" onClick={() => navigate("/dashboard")}>Dashboard</span>
                                             <Ripple/>
                                         </a>
                                     </li>
