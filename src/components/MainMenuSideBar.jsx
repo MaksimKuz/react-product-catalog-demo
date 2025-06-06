@@ -73,7 +73,7 @@ function MenuContent(closeIconRef, hide) {
                                             leaveActiveClassName="slideup">
                                     <div ref={btnRef1}
                                          className="p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer">
-                                        <span className="font-medium">FAVORITES</span>
+                                        <span className="font-medium">ИЗБРАННОЕ</span>
                                         <i className="pi pi-chevron-down"></i>
                                         <Ripple/>
                                     </div>
@@ -83,15 +83,19 @@ function MenuContent(closeIconRef, hide) {
                                     <li>
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                             <i className="pi pi-home mr-2"></i>
-                                            <span className="font-medium" onClick={() => navigate("/dashboard")}>Панель управления</span>
+                                            <span className="font-medium" onClick={() => {
+                                                navigate("/dashboard");
+                                            }}>Панель управления</span>
                                             <Ripple/>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                            <i className="pi pi-bookmark mr-2"></i>
-                                            <span className="font-medium">Bookmarks</span>
+                                            <i className="pi pi-database mr-2"></i>
+                                            <span className="font-medium" onClick={() => {
+                                                navigate("/products");
+                                            }}>Каталог</span>
                                             <Ripple/>
                                         </a>
                                     </li>
