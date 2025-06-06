@@ -10,19 +10,19 @@ const lineData: ChartData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     datasets: [
         {
-            label: 'First Dataset',
+            label: 'По рабочим дням',
             data: [65, 59, 80, 81, 56, 55],
             fill: false,
-            backgroundColor: '#2f4860',
-            borderColor: '#2f4860',
+            backgroundColor: '#cac482',
+            borderColor: '#726161',
             tension: 0.4
         },
         {
-            label: 'Second Dataset',
+            label: 'По выходным',
             data: [28, 48, 40, 19, 86, 27],
             fill: false,
-            backgroundColor: '#00bb7e',
-            borderColor: '#00bb7e',
+            backgroundColor: '#d68b8b',
+            borderColor: '#a34646',
             tension: 0.4
         }
     ]
@@ -32,19 +32,19 @@ const lineData2: ChartData = {
     labels: ['Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
     datasets: [
         {
-            label: 'First Dataset',
+            label: 'По рабочим дням',
             data: [65, 59, 80, 81, 56, 55],
             fill: false,
-            backgroundColor: '#2f4860',
-            borderColor: '#2f4860',
+            backgroundColor: '#cac482',
+            borderColor: '#726161',
             tension: 0.4
         },
         {
-            label: 'Second Dataset',
+            label: 'По выходным',
             data: [28, 48, 40, 19, 86, 27],
             fill: false,
-            backgroundColor: '#00bb7e',
-            borderColor: '#00bb7e',
+            backgroundColor: '#d68b8b',
+            borderColor: '#a34646',
             tension: 0.4
         }
     ]
@@ -52,31 +52,28 @@ const lineData2: ChartData = {
 
 const Dashboard = () => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
-    const menu1 = useRef<Menu>(null);
-    const menu2 = useRef<Menu>(null);
     const [lineOptions, setLineOptions] = useState<ChartOptions>({});
- //   const { layoutConfig } = useContext(LayoutContext);
 
     useEffect(() => {
         ProductService.getProductsSmall().then((data) => setProducts(data));
     }, []);
 
     return (
-        <div className="grid">
+        <div className="grid mt-2">
             <div className="col-3">
                 <Card style={{borderRadius:"15px", textAlign:"left"}} className="mb-0">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Orders</span>
-                            <div className="text-900 font-medium text-xl">152</div>
+                            <span className="block text-500 font-medium mb-3">Заказов</span>
+                            <div className="text-900 font-medium text-xl">2152</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-blue-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
                             <i className="pi pi-shopping-cart text-blue-500 text-xl"/>
                         </div>
                     </div>
-                    <span className="text-green-500 font-medium">24 new </span>
-                    <span className="text-500">since last visit</span>
+                    <span className="text-green-500 font-medium">524 новых </span>
+                    <span className="text-500">за эту неделю</span>
                 </Card>
             </div>
 
@@ -84,16 +81,16 @@ const Dashboard = () => {
                 <Card style={{borderRadius:"15px", textAlign:"left"}} className="mb-0">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Revenue</span>
-                            <div className="text-900 font-medium text-xl">$2.100</div>
+                            <span className="block text-500 font-medium mb-3">Выручка</span>
+                            <div className="text-900 font-medium text-xl">2345678.100 руб</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-orange-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
-                            <i className="pi pi-map-marker text-orange-500 text-xl"/>
+                            <i className="pi pi-dollar text-orange-500 text-xl"/>
                         </div>
                     </div>
                     <span className="text-green-500 font-medium">%52+ </span>
-                    <span className="text-500">since last week</span>
+                    <span className="text-500">с последней недели</span>
                 </Card>
             </div>
 
@@ -101,16 +98,16 @@ const Dashboard = () => {
                 <Card style={{borderRadius:"15px", textAlign:"left"}} className="mb-0">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Customers</span>
+                            <span className="block text-500 font-medium mb-3">Клиентов</span>
                             <div className="text-900 font-medium text-xl">28441</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-cyan-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
-                            <i className="pi pi-inbox text-cyan-500 text-xl"/>
+                            <i className="pi pi-user text-cyan-500 text-xl"/>
                         </div>
                     </div>
                     <span className="text-green-500 font-medium">520 </span>
-                    <span className="text-500">newly registered</span>
+                    <span className="text-500">зарегистрировано новых</span>
                 </Card>
             </div>
 
@@ -118,8 +115,8 @@ const Dashboard = () => {
                 <Card style={{borderRadius:"15px", textAlign:"left"}} className="mb-0">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Comments</span>
-                            <div className="text-900 font-medium text-xl">152 Unread</div>
+                            <span className="block text-500 font-medium mb-3">Комментариев</span>
+                            <div className="text-900 font-medium text-xl">152 Непрочитано</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-purple-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
@@ -127,7 +124,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <span className="text-green-500 font-medium">85 </span>
-                    <span className="text-500">responded</span>
+                    <span className="text-500">отвечено</span>
                 </Card>
             </div>
 
@@ -236,7 +233,7 @@ const Dashboard = () => {
                 <Card style={{borderRadius: "15px"}}>
                 <h3>Продажи по месяцам</h3>
                 <Chart type="line" data={lineData} options={lineOptions}/>
-                <Chart type="line" data={lineData2} options={lineOptions}/>
+                <Chart className="mt-2" type="line" data={lineData2} options={lineOptions}/>
                 </Card>
             </div>
         </div>
