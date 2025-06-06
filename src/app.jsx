@@ -4,75 +4,58 @@ import 'primeflex/primeflex.css'; // flex
 import './app.css'
 import './pages/Products.jsx'
 import './components/MainMenuSideBar.jsx'
-import {Route, Routes, NavLink, useParams, Outlet, useNavigate} from "react-router-dom";
+import {Route, Routes, NavLink, useParams, Outlet, useNavigate, useLocation} from "react-router-dom";
 import Products from "./pages/Products.jsx";
 import Menu from "./components/MainMenuSideBar.jsx";
 import MainMenuSideBar from "./components/MainMenuSideBar.jsx";
-import FilterSideBar from "./components/FilterSideBar.js";
 import Home from "./pages/Home.jsx";
 import React, {useState} from "react";
 import {Button} from "primereact/button";
 import {Toolbar} from "primereact/toolbar";
-import Dashboard from "./pages/Dashboard.js";
+import Dashboard from "./pages/Dashboard.tsx";
 
+/**
+ * Определение маршрутов приложения.
+ * */
 function createRoutes(){
     return (
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="products" element={<AppMain />}>
+            <Route path="products" element={<Products />}>
             </Route>
         </Routes>
     )
 }
 
-export function App() {
+/**
+ * Главная панель команд приложения. Отображается везде, кроме Home-страницы.
+ */
+function AppToolbar() {
+    const [mainMenuSideBarVisible, setMainMenuSideBarVisible] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const startContent = (
+        <React.Fragment>
+            <Button icon="pi pi-bars" className="mr-2" onClick={() => setMainMenuSideBarVisible(true)}/>
+            <Button icon="pi pi-home" className="mr-2" onClick={() => navigate('/')}/>
+        </React.Fragment>
+    );
     return (
-        <div className="App">
-            {createRoutes()}
-        </div>
+        <>
+            {location.pathname !== '/' && <Toolbar start={startContent}/>}
+            <MainMenuSideBar visible={mainMenuSideBarVisible} onVisibleChange={(value) =>setMainMenuSideBarVisible(value)}/>
+        </>
     );
 }
 
-function AppMain() {
-
-    const [filterPanelVisible, setFilterPanelVisible] = useState(true);
-    const [mainMenuSideBarVisible, setMainMenuSideBarVisible] = useState(false);
-
-    const HeaderToolbar = () => {
-        const navigate = useNavigate();
-
-        const startContent = (
-            <React.Fragment>
-                <Button icon="pi pi-bars" className="mr-2" onClick={() => setMainMenuSideBarVisible(true)}/>
-                <Button icon="pi pi-home" className="mr-2" onClick={() => navigate('/')}/>
-            </React.Fragment>
-        );
-
-        const centerContent = (
-            <h2>Каталог товаров</h2>
-        );
-
-        const endContent = (
-            <React.Fragment>
-                <Button icon="pi pi-filter" onClick={() => setFilterPanelVisible(true)}/>
-            </React.Fragment>
-        );
-
-        return (
-            <div className="card">
-                <Toolbar start={startContent} center={centerContent} end={endContent} />
-            </div>
-        );
-    };
-
+export function App() {
     return (
-        <>
-            <HeaderToolbar/>
-            <Products/>
-            <MainMenuSideBar visible={mainMenuSideBarVisible} onVisibleChange={(value) =>setMainMenuSideBarVisible(value)}/>
-            <FilterSideBar visible={filterPanelVisible} onVisibleChange={(value) =>setFilterPanelVisible(value)}/>
-        </>
-    )
+        <div className="App">
+            <AppToolbar/>
+            {createRoutes()}
+        </div>
+    );
 }
 

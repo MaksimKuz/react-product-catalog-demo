@@ -6,22 +6,10 @@ import { Ripple } from 'primereact/ripple';
 import { StyleClass } from 'primereact/styleclass';
 import {useNavigate} from "react-router-dom";
 
-export function Menu() {
-    const [visible, setVisible] = useState(true);
-
-    return (
-        <div className="card flex justify-content-center">
-            <Sidebar visible={visible} onHide={() => setVisible(false)}>
-
-            </Sidebar>
-            <Button icon="pi pi-bars" onClick={() => setVisible(true)}/>
-        </div>
-    )
-}
 
 export default function MainMenuSideBar({visible, onVisibleChange}) {
 
-    return <div className="card flex justify-content-center">
+    return <div className="flex justify-content-center">
         <Sidebar
             visible={visible} onHide={() => onVisibleChange(false)}
             content={({ closeIconRef, hide }) => MenuContent(closeIconRef, hide)}
@@ -95,7 +83,7 @@ function MenuContent(closeIconRef, hide) {
                                     <li>
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                             <i className="pi pi-home mr-2"></i>
-                                            <span className="font-medium" onClick={() => navigate("/dashboard")}>Dashboard</span>
+                                            <span className="font-medium" onClick={() => navigate("/dashboard")}>Панель управления</span>
                                             <Ripple/>
                                         </a>
                                     </li>

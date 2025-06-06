@@ -14,6 +14,7 @@ import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
 import {useSearchParams} from "react-router-dom";
+import FilterSideBar from "../components/FilterSideBar.js";
 
 export default function Products() {
 
@@ -21,6 +22,7 @@ export default function Products() {
     const [products, setProducts] = useState(null);
     const [product, setProduct] = useState(null);
     const [showEditProductDialog, setShowEditProductDialog] = useState(false);
+    const [filterPanelVisible, setFilterPanelVisible] = useState(true);
 
     const [searchParams, setSearchParams] = useSearchParams();
     let category = searchParams.get("category");
@@ -54,7 +56,11 @@ export default function Products() {
     };
 
     const rightToolbarTemplate = () => {
-        return <Button label="Экспорт" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
+        return (
+            <div className="flex flex-wrap gap-2">
+            <Button label="Экспорт" icon="pi pi-upload" className="p-button-help" onClick={exportCSV}/>
+            <Button icon="pi pi-filter" className="p-button-help" onClick={() => setFilterPanelVisible(true)}/>
+        </div>);
     };
 
     const actionBodyTemplate = (rowData) => {
@@ -219,6 +225,8 @@ export default function Products() {
             {showDeleteProductsDialog && <ProductDeleteConfirmation
                 title="Вы уверены, что хотите удалить выбранный продукт?"
                 onHide={()=> setShowDeleteProductsDialog(false)} onConfirm={()=> deleteSelectedProducts()}/>}
+
+            <FilterSideBar visible={filterPanelVisible} onVisibleChange={(value) =>setFilterPanelVisible(value)}/>
         </div>
     )
 }
