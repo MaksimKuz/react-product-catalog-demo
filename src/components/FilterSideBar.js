@@ -11,13 +11,6 @@ export default function FilterSideBar({visible, onVisibleChange}) {
 
     const navigate = useNavigate();
 
-    const navLinkStyles = ({ isActive }) => {
-        return {
-            fontWeight: isActive ? "bold" : "normal",
-            textDecoration: isActive ? "none" : "underline"
-        };
-    };
-
     const [categoryFilter, setCategoryFilter] = useState("");
 
     const CategoryFilterOption = ({value, label}) =>(
