@@ -84,7 +84,7 @@ function MenuContent(closeIconRef, hide) {
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                             <i className="pi pi-home mr-2"></i>
                                             <span className="font-medium" onClick={() => {
-                                                navigate("/dashboard");
+                                                navigate("/dashboard"); hide();
                                             }}>Панель управления</span>
                                             <Ripple/>
                                         </a>
@@ -94,8 +94,8 @@ function MenuContent(closeIconRef, hide) {
                                         <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                             <i className="pi pi-database mr-2"></i>
                                             <span className="font-medium" onClick={() => {
-                                                navigate("/products");
-                                            }}>Каталог</span>
+                                                navigate("/products"); hide();
+                                            }}>Каталог продуктов</span>
                                             <Ripple/>
                                         </a>
                                     </li>
