@@ -6,7 +6,7 @@ export default class Product {
     name?: string;
     description?: string;
     image?: string;
-    price?: number;
+    price: number;
     date?:	Date;
     category?: string;
     quantity?: number;

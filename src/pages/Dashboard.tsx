@@ -6,6 +6,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import {ProductService} from "../services/ProductsService";
 import {Card} from "primereact/card";
 import {appStore} from "../models/AppStore.ts";
+import {observer} from "mobx-react";
 
 const lineData: ChartData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -51,7 +52,7 @@ const lineData2: ChartData = {
     ]
 };
 
-const Dashboard = () => {
+const Dashboard = observer(() => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
     const [lineOptions, setLineOptions] = useState<ChartOptions>({});
 
@@ -83,14 +84,14 @@ const Dashboard = () => {
                     <div className="flex justify-content-between mb-3">
                         <div>
                             <span className="block text-500 font-medium mb-3">Выручка</span>
-                            <div className="text-900 font-medium text-xl">2345678.100 руб</div>
+                            <div className="text-900 font-medium text-xl">{new Intl.NumberFormat("ru").format(appStore.ordersIncome)} руб</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-orange-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
                             <i className="pi pi-dollar text-orange-500 text-xl"/>
                         </div>
                     </div>
-                    <span className="text-green-500 font-medium">%52+ </span>
+                    <span className="text-green-500 font-medium">%{appStore.incomeIncrement}+ </span>
                     <span className="text-500">с последней недели</span>
                 </Card>
             </div>
@@ -239,6 +240,6 @@ const Dashboard = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Dashboard;

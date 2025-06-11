@@ -1,26 +1,29 @@
-import {observable, makeObservable, computed} from 'mobx';
+import {observable, makeObservable, computed, action} from 'mobx';
 import Product from "./Product.ts";
 import Order from "./Order.ts";
 
 export default class AppStore {
     products: Product[] = [];
-
     orders: Order[] = [];
+
     constructor() {
-        this.generateOrdrs();
+        this.generateOrders();
 
         makeObservable(this, {
             products: observable,
             orders: observable,
-            newOrders: computed
+            newOrders: computed,
+            generateOrders: action
         });
     }
 
-    private generateOrdrs() {
+    public generateOrders() {
         for (let i = 0; i < 1234; i++) {
             let date = new Date();
             date.setDate(date.getDate() - i);
-            this.orders.push(new Order(i.toString(), new Product(), date, 1));
+            let product = new Product();
+            product.price = 1;
+            this.orders.push(new Order(i.toString(), product, date, 1));
         }
     }
 
@@ -29,6 +32,24 @@ export default class AppStore {
      */
     get newOrders(): number {
         return 236;
+    }
+
+    /**
+     * Возвращает полную выручку по заказам.
+     */
+    get ordersIncome(): number {
+        let sum = 0;
+        for (let order of this.orders) {
+            sum += order.income
+        }
+        return sum;
+    }
+
+    /**
+     * Возвращает увеличение выручи за последнюю неделю.
+     */
+    get incomeIncrement(): number {
+        return 55;
     }
 
 }

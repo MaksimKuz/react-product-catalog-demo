@@ -13,6 +13,7 @@ import React, {useState} from "react";
 import {Button} from "primereact/button";
 import {Toolbar} from "primereact/toolbar";
 import Dashboard from "./pages/Dashboard.tsx";
+import {appStore} from "./models/AppStore.ts";
 
 /**
  * Определение маршрутов приложения.
@@ -40,6 +41,7 @@ function AppToolbar() {
         <React.Fragment>
             <Button icon="pi pi-bars" className="mr-2" onClick={() => setMainMenuSideBarVisible(true)}/>
             <Button icon="pi pi-home" className="mr-2" onClick={() => navigate('/')}/>
+            <Button icon="pi pi-play" className="mr-2" onClick={() => appStore.generateOrders()}/>
         </React.Fragment>
     );
     return (
