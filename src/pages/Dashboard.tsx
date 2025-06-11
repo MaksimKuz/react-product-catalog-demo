@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChartData, ChartOptions } from 'chart.js';
 import {ProductService} from "../services/ProductsService";
 import {Card} from "primereact/card";
+import {appStore} from "../models/AppStore.ts";
 
 const lineData: ChartData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -65,14 +66,14 @@ const Dashboard = () => {
                     <div className="flex justify-content-between mb-3">
                         <div>
                             <span className="block text-500 font-medium mb-3">Заказов</span>
-                            <div className="text-900 font-medium text-xl">2152</div>
+                            <div className="text-900 font-medium text-xl">{appStore.orders.length}</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-blue-100 border-round"
                              style={{width: '2.5rem', height: '2.5rem'}}>
                             <i className="pi pi-shopping-cart text-blue-500 text-xl"/>
                         </div>
                     </div>
-                    <span className="text-green-500 font-medium">524 новых </span>
+                    <span className="text-green-500 font-medium">{appStore.newOrders} новых </span>
                     <span className="text-500">за эту неделю</span>
                 </Card>
             </div>

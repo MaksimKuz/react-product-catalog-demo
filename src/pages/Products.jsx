@@ -15,8 +15,10 @@ import {Tag} from "primereact/tag";
 import {getImageSrc, getSeverity} from "../utils.js";
 import {useSearchParams} from "react-router-dom";
 import FilterSideBar from "../components/FilterSideBar.js";
+import {appStore} from "../models/AppStore.ts";
+import {observer} from "mobx-react";
 
-export default function Products() {
+const Products = observer( () => {
 
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [products, setProducts] = useState(null);
@@ -29,7 +31,7 @@ export default function Products() {
     let instock = searchParams.get("instock");
 
     useEffect(() => {
-        ProductService.getProducts(category, instock).then((data) => setProducts(data));
+        ProductService.getProducts(category, instock).then((data) => setProducts(appStore.products));
     }, [category, instock]);
 
     //region Панели команд
@@ -229,4 +231,6 @@ export default function Products() {
             <FilterSideBar visible={filterPanelVisible} onVisibleChange={(value) =>setFilterPanelVisible(value)}/>
         </div>
     )
-}
+});
+
+export default Products
