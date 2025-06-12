@@ -1,5 +1,4 @@
 import {Chart} from "primereact/chart";
-import {ChartData} from "chart.js";
 import {getCurrentMonth, getCurrentYear, getMonthName} from "../dateUtils.ts";
 import {appStore} from "../models/AppStore.ts";
 
