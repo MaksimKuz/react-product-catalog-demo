@@ -7,54 +7,11 @@ import {ProductService} from "../services/ProductsService";
 import {Card} from "primereact/card";
 import {appStore} from "../models/AppStore.ts";
 import {observer} from "mobx-react";
+import SalesChart from "../components/SalesChart.tsx";
 
-const lineData: ChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-        {
-            label: 'По рабочим дням',
-            data: [65, 59, 80, 81, 56, 55],
-            fill: false,
-            backgroundColor: '#cac482',
-            borderColor: '#726161',
-            tension: 0.4
-        },
-        {
-            label: 'По выходным',
-            data: [28, 48, 40, 19, 86, 27],
-            fill: false,
-            backgroundColor: '#d68b8b',
-            borderColor: '#a34646',
-            tension: 0.4
-        }
-    ]
-};
-
-const lineData2: ChartData = {
-    labels: ['Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-    datasets: [
-        {
-            label: 'По рабочим дням',
-            data: [65, 59, 80, 81, 56, 55],
-            fill: false,
-            backgroundColor: '#cac482',
-            borderColor: '#726161',
-            tension: 0.4
-        },
-        {
-            label: 'По выходным',
-            data: [28, 48, 40, 19, 86, 27],
-            fill: false,
-            backgroundColor: '#d68b8b',
-            borderColor: '#a34646',
-            tension: 0.4
-        }
-    ]
-};
 
 const Dashboard = observer(() => {
     const [products, setProducts] = useState<Demo.Product[]>([]);
-    const [lineOptions, setLineOptions] = useState<ChartOptions>({});
 
     useEffect(() => {
         ProductService.getProductsSmall().then((data) => setProducts(data));
@@ -132,7 +89,7 @@ const Dashboard = observer(() => {
 
             <div className="col-6" >
                 <Card style={{borderRadius: "15px"}}>
-                <div className="flex justify-content-between align-items-center mb-5">
+                <div className="flex justify-content-between align-items-center">
                     <h3>Самые продаваемые продукты</h3>
                 </div>
                 <ul className="list-none p-0 m-0">
@@ -216,6 +173,19 @@ const Dashboard = observer(() => {
                     </li>
                     <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
                         <div>
+                            <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
+                            <div className="mt-1 text-600">Accessories</div>
+                        </div>
+                        <div className="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
+                            <div className="surface-300 border-round overflow-hidden w-10rem lg:w-6rem"
+                                 style={{height: '8px'}}>
+                                <div className="bg-purple-500 h-full" style={{width: '75%'}}/>
+                            </div>
+                            <span className="text-purple-500 ml-3 font-medium">%75</span>
+                        </div>
+                    </li>
+                    <li className="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
+                        <div>
                             <span className="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
                             <div className="mt-1 text-600">Clothing</div>
                         </div>
@@ -234,8 +204,7 @@ const Dashboard = observer(() => {
             <div className="col-6" >
                 <Card style={{borderRadius: "15px"}}>
                 <h3>Продажи по месяцам</h3>
-                <Chart type="line" data={lineData} options={lineOptions}/>
-                <Chart className="mt-2" type="line" data={lineData2} options={lineOptions}/>
+                    <SalesChart/>
                 </Card>
             </div>
         </div>

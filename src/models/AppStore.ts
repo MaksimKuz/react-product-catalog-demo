@@ -1,6 +1,8 @@
 import {observable, makeObservable, computed, action} from 'mobx';
 import Product from "./Product.ts";
 import Order from "./Order.ts";
+import {endOfMonthDate, startOfMonthDate} from "../dateUtils.ts";
+import {isHoliday, isWorkDay} from "../dateUtils.ts";
 
 export default class AppStore {
     products: Product[] = [];
@@ -50,6 +52,23 @@ export default class AppStore {
      */
     get incomeIncrement(): number {
         return 55;
+    }
+
+    private продажиЗаМесяц(год: number, месяц: number, дополнительныйФильтр): number {
+        let som = startOfMonthDate(год, месяц).getTime();
+        let eom = endOfMonthDate(год, месяц).getTime();
+        let orders = this.orders.filter(o => o.date.getTime() >= som && o.date.getTime() < eom + 1 && дополнительныйФильтр(o.date));
+        let sum = 0;
+        orders.forEach(o => sum+= o.income)
+        return sum;
+    }
+
+    public продажиЗаМесяцПоРабочимДням(год: number, месяц: number): number {
+        return this.продажиЗаМесяц(год, месяц, дата => isWorkDay(дата));
+    }
+
+    public продажиЗаМесяцПоВыходнымДням(год: number, месяц: number): number {
+        return this.продажиЗаМесяц(год, месяц, дата => isHoliday(дата));
     }
 
 }
