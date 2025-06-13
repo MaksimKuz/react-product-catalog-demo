@@ -36,3 +36,16 @@ export function getStatusFromIndex (index) {
 export function getImageSrc (imageName) {
     return 'https://primefaces.org/cdn/primereact/images/product/'+imageName;
 }
+
+export function groupBySum(arr, groupProp, sumProp) {
+    return arr.reduce((acc, item) => {
+        let key = item[groupProp];
+        let val = item[sumProp];
+        acc.set(key, (acc.get(key) ?? 0) + val);
+        return acc;
+    }, new Map);
+}
+
+export function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}

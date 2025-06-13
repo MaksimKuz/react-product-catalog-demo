@@ -1,8 +1,9 @@
 import {observable, makeObservable, computed, action} from 'mobx';
 import Product from "./Product.ts";
 import Order from "./Order.ts";
-import {endOfMonthDate, startOfMonthDate} from "../dateUtils.ts";
+import {endOfMonthDate, endOfYearDate, startOfMonthDate, startOfYearDate} from "../dateUtils.ts";
 import {isHoliday, isWorkDay} from "../dateUtils.ts";
+import {getRandomInt, groupBySum} from "../utils";
 
 export default class AppStore {
     products: Product[] = [];
@@ -39,7 +40,7 @@ export default class AppStore {
     /**
      * Возвращает полную выручку по заказам.
      */
-    get ordersIncome(): number {
+    get итоговаяВыручка(): number {
         let sum = 0;
         for (let order of this.orders) {
             sum += order.income
@@ -75,10 +76,37 @@ export default class AppStore {
         return this.выручкаЗаМесяц(год, месяц, дата => isHoliday(дата));
     }
 
-    public продажиЗаМесяцПоВыходнымДням(год: number, месяц: number): number {
-        return this.продажиЗаМесяц(год, месяц, дата => isHoliday(дата));
+    public самыеПродаваемыеПродукты(год: number, максКоличество: number): ПродаваемыйПродукт[] {
+
+        // выбрать все заказы за год и получить полную выручку
+        let заказы = this.заказыЗаПериод(startOfYearDate(год), endOfYearDate(год), d => true);
+        let totalIncome = заказы.reduce((sum, current) => sum + current.income, 0);
+
+        // теперь нужно сгруппировать продуктыСВыручкой по продуктам и рассчитать процент от общей выручки
+        let сгруппированныеПродукты = groupBySum(заказы, 'product', 'income');
+
+        let продукты: ПродаваемыйПродукт[] = [];
+        for (let [key, value] of сгруппированныеПродукты) {
+            продукты.push(new ПродаваемыйПродукт(key, value/totalIncome*100))
+        }
+
+        // отсортировать по убыванию процента и вернуть первые максКоличество элементов
+        return продукты.sort((a, b) => b.percent - a.percent).slice(0, максКоличество);
     }
 
+}
+
+/**
+ * Класс для возвращения результата функции самыеПродаваемыеПродукты
+ */
+class ПродаваемыйПродукт {
+    product: Product;
+    percent: number;
+
+    constructor(product: Product, percent: number) {
+        this.product = product;
+        this.percent = percent;
+    }
 }
 
 export const appStore = new AppStore();
