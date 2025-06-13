@@ -12,6 +12,14 @@ export function endOfMonthDate(year: number, month: number): Date {
     return new Date(year, month, 0);
 }
 
+export function startOfYearDate(year: number): Date {
+    return new Date(year, 0, 1);
+}
+
+export function endOfYearDate(year: number): Date {
+    return new Date(year, 11, 31);
+}
+
 /**
  * Возвращает день недели указанной даты: 1 - понедельник, и т.д.
  * */
