@@ -23,7 +23,7 @@ export default class AppStore {
         for (let i = 0; i < 1234; i++) {
             let date = new Date();
             date.setDate(date.getDate() - i);
-            let product = new Product();
+            let product = new Product('Space T-Shirt', 'Clothing');
             product.price = 1;
             this.orders.push(new Order(i.toString(), product, date, 1));
         }
@@ -54,17 +54,25 @@ export default class AppStore {
         return 55;
     }
 
-    private продажиЗаМесяц(год: number, месяц: number, дополнительныйФильтр): number {
-        let som = startOfMonthDate(год, месяц).getTime();
-        let eom = endOfMonthDate(год, месяц).getTime();
-        let orders = this.orders.filter(o => o.date.getTime() >= som && o.date.getTime() < eom + 1 && дополнительныйФильтр(o.date));
+    private заказыЗаПериод(начальнаяДата: Date, конечнаяДата: Date, дополнительныйФильтр): Order[] {
+        let start = начальнаяДата.getTime();
+        let end = конечнаяДата.getTime();
+        return this.orders.filter(o => o.date.getTime() >= start && o.date.getTime() < end + 1 && дополнительныйФильтр(o.date));
+    }
+
+    private выручкаЗаМесяц(год: number, месяц: number, дополнительныйФильтр): number {
+        let orders = this.заказыЗаПериод(startOfMonthDate(год, месяц), endOfMonthDate(год, месяц), дополнительныйФильтр);
         let sum = 0;
         orders.forEach(o => sum+= o.income)
         return sum;
     }
 
-    public продажиЗаМесяцПоРабочимДням(год: number, месяц: number): number {
-        return this.продажиЗаМесяц(год, месяц, дата => isWorkDay(дата));
+    public выручкаЗаМесяцПоРабочимДням(год: number, месяц: number): number {
+        return this.выручкаЗаМесяц(год, месяц, дата => isWorkDay(дата));
+    }
+
+    public выручкаЗаМесяцПоВыходнымДням(год: number, месяц: number): number {
+        return this.выручкаЗаМесяц(год, месяц, дата => isHoliday(дата));
     }
 
     public продажиЗаМесяцПоВыходнымДням(год: number, месяц: number): number {

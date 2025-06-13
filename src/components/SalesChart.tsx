@@ -2,11 +2,13 @@ import {Chart} from "primereact/chart";
 import {getCurrentMonth, getCurrentYear, getMonthName} from "../dateUtils.ts";
 import {appStore} from "../models/AppStore.ts";
 
+type DataFunction = (month: number, isWorkDay: boolean) => number;
+
 /**
  * Возвращает набор данных для отображения графика. Параметры задают начальный и конечный месяцы года и функцию для
  * получения данных за этот месяц (отдельно по рабочим и выходным дням).
  * */
-function getLineData(startMonth: number, endMonth: number, dataFunc){
+function getLineData(startMonth: number, endMonth: number, dataFunc: DataFunction){
     let data = {
         labels: [],
         datasets: [
@@ -42,13 +44,13 @@ function getLineData(startMonth: number, endMonth: number, dataFunc){
  * */
 export default function SalesChart() {
 
-    const dataFunc1 = (month, workDay)=>
-        workDay ? appStore.продажиЗаМесяцПоРабочимДням(getCurrentYear(), month) :
-                  appStore.продажиЗаМесяцПоВыходнымДням(getCurrentYear(), month)
+    const dataFunc1 = (month: number, workDay: boolean)=>
+        workDay ? appStore.выручкаЗаМесяцПоРабочимДням(getCurrentYear(), month) :
+                  appStore.выручкаЗаМесяцПоВыходнымДням(getCurrentYear(), month)
 
-    const dataFunc2 = (month, workDay)=>
-        workDay ? appStore.продажиЗаМесяцПоРабочимДням(getCurrentYear()-1, month) :
-                  appStore.продажиЗаМесяцПоВыходнымДням(getCurrentYear()-1, month)
+    const dataFunc2 = (month: number, workDay: boolean)=>
+        workDay ? appStore.выручкаЗаМесяцПоРабочимДням(getCurrentYear()-1, month) :
+                  appStore.выручкаЗаМесяцПоВыходнымДням(getCurrentYear()-1, month)
 
     if (getCurrentMonth() < 7)
         return (
