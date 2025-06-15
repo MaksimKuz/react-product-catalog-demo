@@ -10,7 +10,6 @@ export default class AppStore {
     orders: Order[] = [];
 
     constructor() {
-        this.generateOrders();
 
         makeObservable(this, {
             products: observable,
@@ -28,6 +27,21 @@ export default class AppStore {
             product.price = 1;
             this.orders.push(new Order(i.toString(), product, date, 1));
         }
+    }
+
+    /**
+     * Формирует новый заказ
+     * @param дата дата заказа
+     * @param названиеПродукта название продукта из списка продуктов
+     * @param количество количество единиц
+     */
+    сгенерироватьЗаказ(дата: Date, названиеПродукта: string, количество: number) {
+        let product = this.products.find(p => p.name === названиеПродукта);
+        this.orders.push(new Order((this.orders.length+1).toString(), product, дата, количество));
+    }
+
+    добавитьПродукт(названиеПродукта: string, категория: string, цена: number) {
+        this.products.push(new Product(названиеПродукта, категория, цена));
     }
 
     /**
@@ -93,7 +107,6 @@ export default class AppStore {
         // отсортировать по убыванию процента и вернуть первые максКоличество элементов
         return продукты.sort((a, b) => b.percent - a.percent).slice(0, максКоличество);
     }
-
 }
 
 /**
