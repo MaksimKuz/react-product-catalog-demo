@@ -37,7 +37,14 @@ export function getImageSrc (imageName) {
     return 'https://primefaces.org/cdn/primereact/images/product/'+imageName;
 }
 
-export function groupBySum(arr, groupProp, sumProp) {
+/**
+ * Группирует массив по значениям свойства groupProp, суммируя сгруппированные элементы по значениям свойства sumProp.
+ * @param arr
+ * @param groupProp
+ * @param sumProp
+ * @returns Map, содержащий в качестве ключей свойства groupProp, а в качестве значений - суммы по значениям sumProp.
+ */
+export function groupThenSum(arr, groupProp, sumProp) {
     return arr.reduce((acc, item) => {
         let key = item[groupProp];
         let val = item[sumProp];

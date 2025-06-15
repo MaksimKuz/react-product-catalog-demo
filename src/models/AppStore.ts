@@ -1,9 +1,9 @@
 import {observable, makeObservable, computed, action} from 'mobx';
 import Product from "./Product.ts";
 import Order from "./Order.ts";
-import {endOfMonthDate, endOfYearDate, startOfMonthDate, startOfYearDate} from "../dateUtils.ts";
-import {isHoliday, isWorkDay} from "../dateUtils.ts";
-import {getRandomInt, groupBySum} from "../utils";
+import {endOfMonthDate, endOfYearDate, startOfMonthDate, startOfYearDate} from "../utils/dateUtils.ts";
+import {isHoliday, isWorkDay} from "../utils/dateUtils.ts";
+import {getRandomInt, groupThenSum} from "../utils/utils.js";
 
 export default class AppStore {
     products: Product[] = [];
@@ -83,7 +83,7 @@ export default class AppStore {
         let totalIncome = заказы.reduce((sum, current) => sum + current.income, 0);
 
         // теперь нужно сгруппировать продуктыСВыручкой по продуктам и рассчитать процент от общей выручки
-        let сгруппированныеПродукты = groupBySum(заказы, 'product', 'income');
+        let сгруппированныеПродукты = groupThenSum(заказы, 'product', 'income');
 
         let продукты: ПродаваемыйПродукт[] = [];
         for (let [key, value] of сгруппированныеПродукты) {

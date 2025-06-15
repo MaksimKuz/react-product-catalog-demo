@@ -1,5 +1,5 @@
 import {Chart} from "primereact/chart";
-import {getCurrentMonth, getCurrentYear, getMonthName} from "../dateUtils.ts";
+import {getCurrentMonth, getCurrentYear, getMonthName} from "../utils/dateUtils.ts";
 import {appStore} from "../models/AppStore.ts";
 
 type DataFunction = (month: number, isWorkDay: boolean) => number;

@@ -12,7 +12,7 @@ import ProductDetails from "../components/ProductDetails.js";
 import {ProductService} from "../services/ProductsService.js";
 import {Rating} from "primereact/rating";
 import {Tag} from "primereact/tag";
-import {getImageSrc, getSeverity} from "../utils.js";
+import {getImageSrc, getSeverity} from "../utils/utils.js";
 import {useSearchParams} from "react-router-dom";
 import FilterSideBar from "../components/FilterSideBar.js";
 import {appStore} from "../models/AppStore.ts";

@@ -46,3 +46,13 @@ export function getCurrentYear(): number {
 export function getCurrentMonth(): number {
     return new Date().getMonth()+1;
 }
+
+/**
+ * Возвращает объект даты
+ * @param year
+ * @param month параметр должен быть в диапазоне 1-12
+ * @param day
+ */
+export function newDate(year: number, month: number, day: number): Date {
+    return new Date(year, month-1, day);
+}

@@ -1,5 +1,5 @@
 import {appStore} from "../models/AppStore.ts";
-import {getCurrentYear} from "../dateUtils.ts";
+import {getCurrentYear} from "../utils/dateUtils.ts";
 
 function percentToColor(percent){
     if (percent < 20)
