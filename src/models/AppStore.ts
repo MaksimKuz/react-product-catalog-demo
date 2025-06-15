@@ -23,7 +23,7 @@ export default class AppStore {
         for (let i = 0; i < 1234; i++) {
             let date = new Date();
             date.setDate(date.getDate() - i);
-            let product = new Product('Space T-Shirt', 'Clothing');
+            let product = this.products[getRandomInt(this.products.length-1)];
             product.price = 1;
             this.orders.push(new Order(i.toString(), product, date, 1));
         }
